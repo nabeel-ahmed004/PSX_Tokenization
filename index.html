@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSX Chain</title>
+  <style>
+    body { font-family: monospace; padding: 20px; max-width: 1100px; margin: 0 auto; }
+    h2 { margin-top: 30px; border-bottom: 1px solid #000; padding-bottom: 4px; }
+    table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+    th, td { border: 1px solid #000; padding: 6px 10px; text-align: left; }
+    th { background: #eee; }
+    button { padding: 6px 14px; margin: 4px; cursor: pointer; }
+    input { padding: 5px; margin: 4px; font-family: monospace; }
+    select { padding: 5px; margin: 4px; font-family: monospace; }
+    #status { margin: 10px 0; padding: 8px; border: 1px solid #000; background: #f9f9f9; }
+    .section { margin-bottom: 30px; }
+    .hidden { display: none; }
+    .role-badge { font-weight: bold; padding: 2px 8px; border: 1px solid #000; }
+    .green { color: green; }
+    .red { color: red; }
+    .orange { color: orange; }
+  </style>
+</head>
+<body>
+
+<h1>PSX Chain — Tokenized Pakistan Stock Exchange</h1>
+
+<!-- ── Wallet Section ──────────────────────────────────────────── -->
+<div class="section">
+  <div id="wallet-disconnected">
+    <button onclick="connectWallet()">Connect MetaMask</button>
+  </div>
+  <div id="wallet-connected" class="hidden">
+    <strong>Wallet:</strong> <span id="wallet-address"></span> &nbsp;
+    <strong>Role:</strong> <span id="wallet-role" class="role-badge"></span> &nbsp;
+    <button onclick="disconnect()">Disconnect</button>
+  </div>
+</div>
+
+<div id="status">Not connected.</div>
+
+<!-- ── Pages ──────────────────────────────────────────────────── -->
+<div id="nav" class="hidden">
+  <button onclick="showPage('market')">Market</button>
+  <button onclick="showPage('portfolio')">My Portfolio</button>
+  <button id="nav-kyc-apply"   onclick="showPage('kyc-apply')"   class="hidden">Apply for KYC</button>
+  <button id="nav-kyc-review"  onclick="showPage('kyc-review')"  class="hidden">KYC Review</button>
+  <button id="nav-admin"       onclick="showPage('admin')"       class="hidden">Admin</button>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- PAGE: MARKET                                                 -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="page-market" class="hidden section">
+  <h2>Market — All Listed Stocks</h2>
+  <button onclick="loadMarket()">Refresh</button>
+  <table id="market-table">
+    <thead>
+      <tr>
+        <th>Ticker</th><th>Company</th><th>Sector</th>
+        <th>Oracle Price (PKR)</th><th>Price Status</th>
+        <th>Pool ETH Reserve</th><th>Pool Token Reserve</th>
+        <th>My Balance</th><th>KYC</th><th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="market-tbody"><tr><td colspan="10">Loading...</td></tr></tbody>
+  </table>
+
+  <h2>Trade</h2>
+  <div>
+    <label>Stock:</label>
+    <select id="trade-token">
+      <option value="">-- select --</option>
+    </select>
+    &nbsp;
+    <label>Mode:</label>
+    <select id="trade-mode">
+      <option value="buy">Buy (ETH → Token)</option>
+      <option value="sell">Sell (Token → ETH)</option>
+    </select>
+    <br/><br/>
+    <label id="trade-amount-label">ETH to spend:</label>
+    <input id="trade-amount" type="number" step="0.001" placeholder="0.0" style="width:120px" />
+    <button onclick="getQuote()">Get Quote</button>
+    <button onclick="executeTrade()">Execute Trade</button>
+    <br/>
+    <div id="trade-quote" style="margin-top:8px"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- PAGE: PORTFOLIO                                              -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="page-portfolio" class="hidden section">
+  <h2>My Portfolio</h2>
+  <button onclick="loadPortfolio()">Refresh</button>
+  <table>
+    <thead>
+      <tr>
+        <th>Ticker</th><th>Company</th><th>Balance (tokens)</th>
+        <th>Oracle Price (PKR)</th><th>KYC Approved</th>
+      </tr>
+    </thead>
+    <tbody id="portfolio-tbody"><tr><td colspan="5">Loading...</td></tr></tbody>
+  </table>
+
+  <h2>Liquidity — Add / Remove</h2>
+  <div>
+    <label>Stock:</label>
+    <select id="lp-token"><option value="">-- select --</option></select>
+    <br/><br/>
+    <strong>Add Liquidity</strong><br/>
+    <label>ETH:</label> <input id="lp-eth" type="number" step="0.001" placeholder="0.0" style="width:100px" />
+    <label>Tokens:</label> <input id="lp-tokens" type="number" step="0.001" placeholder="0.0" style="width:100px" />
+    <button onclick="addLiquidity()">Add</button>
+    <br/><br/>
+    <strong>Remove Liquidity</strong><br/>
+    <label>LP Amount:</label> <input id="lp-remove-amount" type="number" step="0.001" placeholder="0.0" style="width:100px" />
+    <span id="lp-balance-display" style="margin-left:10px"></span>
+    <button onclick="loadLPBalance()">Check LP Balance</button>
+    <button onclick="removeLiquidity()">Remove</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- PAGE: KYC APPLY                                             -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="page-kyc-apply" class="hidden section">
+  <h2>KYC Application</h2>
+  <table>
+    <tr><td><label>Full Name:</label></td>
+        <td><input id="kyc-name" type="text" placeholder="Muhammad Ali" style="width:250px"/></td></tr>
+    <tr><td><label>CNIC:</label></td>
+        <td><input id="kyc-cnic" type="text" placeholder="42201-1234567-1" style="width:250px"/></td></tr>
+    <tr><td><label>Email:</label></td>
+        <td><input id="kyc-email" type="email" placeholder="email@example.com" style="width:250px"/></td></tr>
+    <tr><td><label>Phone:</label></td>
+        <td><input id="kyc-phone" type="text" placeholder="+92 300 1234567" style="width:250px"/></td></tr>
+  </table>
+  <br/>
+  <strong>Select stocks to apply for:</strong><br/>
+  <div id="kyc-stock-checkboxes" style="margin:10px 0"></div>
+  <button onclick="submitKYC()">Submit KYC Application</button>
+  <div id="kyc-submit-result" style="margin-top:10px"></div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- PAGE: KYC REVIEW                                            -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="page-kyc-review" class="hidden section">
+  <h2>KYC Review</h2>
+  <div>
+    Filter:
+    <button onclick="loadKYCRequests('pending')">Pending</button>
+    <button onclick="loadKYCRequests('approved')">Approved</button>
+    <button onclick="loadKYCRequests('rejected')">Rejected</button>
+    <button onclick="loadKYCRequests('all')">All</button>
+  </div>
+  <table id="kyc-table">
+    <thead>
+      <tr>
+        <th>Name</th><th>CNIC</th><th>Email</th><th>Wallet</th>
+        <th>Stocks</th><th>Submitted</th><th>Status</th><th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="kyc-tbody"><tr><td colspan="8">Click a filter above to load.</td></tr></tbody>
+  </table>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- PAGE: ADMIN                                                  -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<div id="page-admin" class="hidden section">
+  <h2>Admin — Listed Companies</h2>
+  <button onclick="loadAdminCompanies()">Refresh</button>
+  <table id="admin-companies-table">
+    <thead>
+      <tr>
+        <th>Ticker</th><th>Company</th><th>Sector</th>
+        <th>Total Supply</th><th>Pool</th><th>Status</th><th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="admin-companies-tbody"><tr><td colspan="7">Loading...</td></tr></tbody>
+  </table>
+
+  <h2>List New Company</h2>
+  <table>
+    <tr><td>Company Name:</td><td><input id="new-name"   type="text"   placeholder="Habib Bank Limited"  style="width:280px"/></td></tr>
+    <tr><td>Ticker:</td>      <td><input id="new-ticker" type="text"   placeholder="HBL"                 style="width:100px"/></td></tr>
+    <tr><td>Sector:</td>      <td>
+      <select id="new-sector">
+        <option>Energy</option><option>Banking</option><option>Cement</option>
+        <option>Fertilizer</option><option>Technology</option><option>Textile</option>
+        <option>Automobile</option><option>Power</option><option>Pharmaceuticals</option><option>Other</option>
+      </select></td></tr>
+    <tr><td>Initial Supply:</td><td><input id="new-supply" type="number" placeholder="1000000" style="width:150px"/> shares</td></tr>
+  </table>
+  <br/>
+  <button onclick="listCompany()">List Company + Create Pool</button>
+
+  <h2>Platform Fees</h2>
+  <p>Accumulated fees: <strong id="fee-balance">—</strong></p>
+  <button onclick="loadFeeBalance()">Check Balance</button>
+  <button onclick="withdrawFees()">Withdraw to My Wallet</button>
+</div>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- SCRIPT                                                       -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<script type="module">
+
+// ── Contract addresses — fill after deployment ──────────────────
+const CONTRACTS = {
+  factory:  "0xYourFactoryAddressHere",
+  exchange: "0xYourExchangeAddressHere",
+  oracle:   "0xYourOracleAddressHere",
+};
+
+// ── ABIs ────────────────────────────────────────────────────────
+const FACTORY_ABI = [
+  "function getAllTickers() view returns (string[])",
+  "function getCompanyInfo(string) view returns (tuple(string companyName,string ticker,string sector,address tokenAddress,uint256 listedAt,bool isActive))",
+  "function getTokenAddress(string) view returns (address)",
+  "function listCompany(string,string,string,uint256) returns (address)",
+  "function delistCompany(string)",
+  "function admin() view returns (address)",
+];
+const EXCHANGE_ABI = [
+  "function createPool(string) returns (address)",
+  "function buyShares(address,uint256) payable",
+  "function sellShares(address,uint256,uint256)",
+  "function addLiquidity(address,uint256,uint256) payable",
+  "function removeLiquidity(address,uint256,uint256,uint256)",
+  "function getPool(address) view returns (address)",
+  "function quoteBuy(address,uint256) view returns (uint256)",
+  "function quoteSell(address,uint256) view returns (uint256)",
+  "function getReserves(address) view returns (uint256,uint256)",
+  "function platformFeeBalance() view returns (uint256)",
+  "function withdrawPlatformFees(address)",
+  "function admin() view returns (address)",
+];
+const ORACLE_ABI = [
+  "function getPrice(string) view returns (uint256,bool)",
+  "function isFeeder(address) view returns (bool)",
+  "function admin() view returns (address)",
+];
+const TOKEN_ABI = [
+  "function balanceOf(address) view returns (uint256)",
+  "function approve(address,uint256) returns (bool)",
+  "function allowance(address,address) view returns (uint256)",
+  "function whitelisted(address) view returns (bool)",
+  "function setWhitelist(address,bool)",
+  "function totalSupply() view returns (uint256)",
+];
+const LP_ABI = [
+  "function balanceOf(address) view returns (uint256)",
+  "function approve(address,uint256) returns (bool)",
+];
+
+// ── State ───────────────────────────────────────────────────────
+let provider, signer, address, role;
+let stockList = []; // { ticker, name, sector, tokenAddress, isActive }
+
+// ── Helpers ─────────────────────────────────────────────────────
+function setStatus(msg) { document.getElementById("status").textContent = msg; }
+
+function fmt(wei, dec = 18) {
+  const n = Number(BigInt(wei) * 10000n / (10n ** BigInt(dec))) / 10000;
+  return n.toLocaleString("en-US", { maximumFractionDigits: 4 });
+}
+
+function fmtPKR(scaled) {
+  return "Rs. " + (Number(scaled) / 1e8).toLocaleString("en-PK", { maximumFractionDigits: 2 });
+}
+
+function ethers() { return window.ethers; }
+
+function showPage(name) {
+  ["market","portfolio","kyc-apply","kyc-review","admin"].forEach(p => {
+    document.getElementById("page-" + p).classList.add("hidden");
+  });
+  document.getElementById("page-" + name).classList.remove("hidden");
+
+  // Auto-load data when switching pages
+  if (name === "market")      loadMarket();
+  if (name === "portfolio")   loadPortfolio();
+  if (name === "kyc-apply")   loadKYCStockCheckboxes();
+  if (name === "kyc-review")  loadKYCRequests("pending");
+  if (name === "admin")       { loadAdminCompanies(); loadFeeBalance(); }
+}
+
+// ── Wallet ───────────────────────────────────────────────────────
+async function connectWallet() {
+  if (!window.ethereum) { setStatus("MetaMask not found."); return; }
+  //if (!window.ethers)   { setStatus("ethers.js not loaded."); return; }
+
+  try {
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    provider = new ethers().BrowserProvider(window.ethereum);
+    const net = await provider.getNetwork();
+    const chainId = Number(net.chainId);
+
+    // Change this to 11155111 for Sepolia
+    if (chainId !== 31337) {
+      setStatus(`Wrong network (chain ${chainId}). Switch to Hardhat Local (31337) or Sepolia (11155111).`);
+      return;
+    }
+
+    signer  = await provider.getSigner();
+    address = await signer.getAddress();
+    role    = await detectRole();
+
+    document.getElementById("wallet-disconnected").classList.add("hidden");
+    document.getElementById("wallet-connected").classList.remove("hidden");
+    document.getElementById("wallet-address").textContent = address;
+    document.getElementById("wallet-role").textContent    = role;
+    document.getElementById("nav").classList.remove("hidden");
+
+    // Show role-specific nav buttons
+    if (role === "investor" || role === "admin") {
+      document.getElementById("nav-kyc-apply").classList.remove("hidden");
+    }
+    if (role === "kyc_checker") {
+      document.getElementById("nav-kyc-review").classList.remove("hidden");
+    }
+    if (role === "admin") {
+      document.getElementById("nav-admin").classList.remove("hidden");
+    }
+
+    // Load stock list once
+    await loadStockList();
+
+    setStatus(`Connected as ${role} (${address})`);
+    showPage("market");
+
+  } catch (e) {
+    setStatus("Connection failed: " + (e.message || e));
+  }
+}
+
+function disconnect() {
+  provider = signer = address = role = null;
+  document.getElementById("wallet-disconnected").classList.remove("hidden");
+  document.getElementById("wallet-connected").classList.add("hidden");
+  document.getElementById("nav").classList.add("hidden");
+  ["market","portfolio","kyc-apply","kyc-review","admin"].forEach(p =>
+    document.getElementById("page-" + p).classList.add("hidden")
+  );
+  setStatus("Disconnected.");
+}
+
+async function detectRole() {
+  try {
+    const factory  = new (ethers().Contract)(CONTRACTS.factory,  FACTORY_ABI,  provider);
+    const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, provider);
+    const oracle   = new (ethers().Contract)(CONTRACTS.oracle,   ORACLE_ABI,   provider);
+    const [fAdmin, eAdmin, isFeeder] = await Promise.all([
+      factory.admin().catch(() => null),
+      exchange.admin().catch(() => null),
+      oracle.isFeeder(address).catch(() => false),
+    ]);
+    const a = address.toLowerCase();
+    if (fAdmin && a === fAdmin.toLowerCase()) return "admin";
+    if (eAdmin && a === eAdmin.toLowerCase()) return "admin";
+    if (isFeeder) return "kyc_checker";
+    return "investor";
+  } catch { return "investor"; }
+}
+
+// ── Load stock list (shared) ─────────────────────────────────────
+async function loadStockList() {
+  const factory = new (ethers().Contract)(CONTRACTS.factory, FACTORY_ABI, provider);
+  const tickers = await factory.getAllTickers();
+  stockList = await Promise.all(tickers.map(async t => {
+    const info = await factory.getCompanyInfo(t);
+    return {
+      ticker: t,
+      name: info.companyName,
+      sector: info.sector,
+      tokenAddress: info.tokenAddress,
+      isActive: info.isActive,
+    };
+  }));
+
+  // Populate trade and LP dropdowns
+  ["trade-token","lp-token"].forEach(id => {
+    const sel = document.getElementById(id);
+    sel.innerHTML = '<option value="">-- select --</option>';
+    stockList.filter(s => s.isActive).forEach(s => {
+      sel.innerHTML += `<option value="${s.tokenAddress}">[${s.ticker}] ${s.name}</option>`;
+    });
+  });
+}
+
+// ── Market Page ──────────────────────────────────────────────────
+async function loadMarket() {
+  if (!provider) return;
+  setStatus("Loading market...");
+  const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, provider);
+  const oracle   = new (ethers().Contract)(CONTRACTS.oracle,   ORACLE_ABI,   provider);
+  const tbody    = document.getElementById("market-tbody");
+  tbody.innerHTML = "";
+
+  for (const s of stockList.filter(s => s.isActive)) {
+    const token   = new (ethers().Contract)(s.tokenAddress, TOKEN_ABI, provider);
+    let price = 0n, isFresh = false, ethRes = 0n, tokRes = 0n, balance = 0n, isKYC = false;
+
+    try { [price, isFresh] = await oracle.getPrice(s.ticker); } catch {}
+    try { [ethRes, tokRes] = await exchange.getReserves(s.tokenAddress); } catch {}
+    try { balance = await token.balanceOf(address); } catch {}
+    try { isKYC   = await token.whitelisted(address); } catch {}
+
+    const priceStr  = price ? fmtPKR(price) : "—";
+    const freshStr  = price ? (isFresh ? '<span class="green">Live</span>' : '<span class="orange">Stale</span>') : "—";
+    const kycStr    = isKYC ? '<span class="green">Yes</span>' : '<span class="red">No</span>';
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><b>${s.ticker}</b></td>
+      <td>${s.name}</td>
+      <td>${s.sector}</td>
+      <td>${priceStr}</td>
+      <td>${freshStr}</td>
+      <td>${ethRes ? fmt(ethRes) + " ETH" : "—"}</td>
+      <td>${tokRes ? fmt(tokRes) : "—"}</td>
+      <td>${fmt(balance)}</td>
+      <td>${kycStr}</td>
+      <td>
+        <button onclick="quickBuy('${s.tokenAddress}','${s.ticker}')">Buy</button>
+        <button onclick="quickSell('${s.tokenAddress}','${s.ticker}')">Sell</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  }
+  setStatus("Market loaded.");
+}
+
+// Quick buy/sell — fills the trade form and scrolls to it
+function quickBuy(tokenAddr, ticker) {
+  document.getElementById("trade-token").value = tokenAddr;
+  document.getElementById("trade-mode").value  = "buy";
+  document.getElementById("trade-amount-label").textContent = "ETH to spend:";
+  document.getElementById("trade-amount").focus();
+}
+function quickSell(tokenAddr, ticker) {
+  document.getElementById("trade-token").value = tokenAddr;
+  document.getElementById("trade-mode").value  = "sell";
+  document.getElementById("trade-amount-label").textContent = `${ticker} tokens to sell:`;
+  document.getElementById("trade-amount").focus();
+}
+
+// Update label when mode changes
+document.getElementById("trade-mode").addEventListener("change", function() {
+  const mode = this.value;
+  const ticker = document.getElementById("trade-token").selectedOptions[0]?.text?.split("]")[0]?.replace("[","") || "Token";
+  document.getElementById("trade-amount-label").textContent =
+    mode === "buy" ? "ETH to spend:" : `${ticker} tokens to sell:`;
+});
+
+async function getQuote() {
+  const tokenAddr = document.getElementById("trade-token").value;
+  const mode      = document.getElementById("trade-mode").value;
+  const amount    = document.getElementById("trade-amount").value;
+  const quoteDiv  = document.getElementById("trade-quote");
+
+  if (!tokenAddr || !amount) { quoteDiv.textContent = "Select a stock and enter amount."; return; }
+
+  const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, provider);
+  try {
+    if (mode === "buy") {
+      const out = await exchange.quoteBuy(tokenAddr, ethers().parseEther(amount));
+      quoteDiv.textContent = `Quote: ${amount} ETH → ${fmt(out)} tokens (incl. all fees)`;
+    } else {
+      const out = await exchange.quoteSell(tokenAddr, ethers().parseEther(amount));
+      quoteDiv.textContent = `Quote: ${amount} tokens → ${fmt(out)} ETH (incl. all fees)`;
+    }
+  } catch (e) {
+    quoteDiv.textContent = "Quote failed: " + (e.reason || e.message);
+  }
+}
+
+async function executeTrade() {
+  const tokenAddr = document.getElementById("trade-token").value;
+  const mode      = document.getElementById("trade-mode").value;
+  const amount    = document.getElementById("trade-amount").value;
+
+  if (!tokenAddr || !amount) { setStatus("Select a stock and enter amount."); return; }
+
+  const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, signer);
+
+  try {
+    if (mode === "buy") {
+      setStatus("Sending buy transaction...");
+      const tx = await exchange.buyShares(tokenAddr, 0n, { value: ethers().parseEther(amount) });
+      setStatus("Waiting for confirmation...");
+      await tx.wait();
+      setStatus(`Buy confirmed! Tx: ${tx.hash}`);
+    } else {
+      setStatus("Approving tokens...");
+      const token = new (ethers().Contract)(tokenAddr, TOKEN_ABI, signer);
+      const appTx = await token.approve(CONTRACTS.exchange, ethers().parseEther(amount));
+      await appTx.wait();
+      setStatus("Sending sell transaction...");
+      const tx = await exchange.sellShares(tokenAddr, ethers().parseEther(amount), 0n);
+      setStatus("Waiting for confirmation...");
+      await tx.wait();
+      setStatus(`Sell confirmed! Tx: ${tx.hash}`);
+    }
+    loadMarket();
+  } catch (e) {
+    setStatus("Trade failed: " + (e.reason || e.message));
+  }
+}
+
+// ── Portfolio Page ───────────────────────────────────────────────
+async function loadPortfolio() {
+  if (!provider) return;
+  setStatus("Loading portfolio...");
+  const oracle = new (ethers().Contract)(CONTRACTS.oracle, ORACLE_ABI, provider);
+  const tbody  = document.getElementById("portfolio-tbody");
+  tbody.innerHTML = "";
+
+  for (const s of stockList.filter(s => s.isActive)) {
+    const token = new (ethers().Contract)(s.tokenAddress, TOKEN_ABI, provider);
+    const balance = await token.balanceOf(address);
+    if (balance === 0n) continue;
+
+    const isKYC = await token.whitelisted(address);
+    let price = 0n;
+    try { [price] = await oracle.getPrice(s.ticker); } catch {}
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><b>${s.ticker}</b></td>
+      <td>${s.name}</td>
+      <td>${fmt(balance)}</td>
+      <td>${price ? fmtPKR(price) : "—"}</td>
+      <td>${isKYC ? '<span class="green">Yes</span>' : '<span class="red">No</span>'}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  if (tbody.innerHTML === "") {
+    tbody.innerHTML = "<tr><td colspan='5'>No holdings found.</td></tr>";
+  }
+  setStatus("Portfolio loaded.");
+}
+
+async function addLiquidity() {
+  const tokenAddr = document.getElementById("lp-token").value;
+  const ethAmt    = document.getElementById("lp-eth").value;
+  const tokAmt    = document.getElementById("lp-tokens").value;
+  if (!tokenAddr || !ethAmt || !tokAmt) { setStatus("Fill all liquidity fields."); return; }
+
+  try {
+    setStatus("Approving tokens for liquidity...");
+    const token    = new (ethers().Contract)(tokenAddr, TOKEN_ABI, signer);
+    const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, signer);
+    const appTx    = await token.approve(CONTRACTS.exchange, ethers().parseEther(tokAmt));
+    await appTx.wait();
+    setStatus("Adding liquidity...");
+    const tx = await exchange.addLiquidity(
+      tokenAddr, ethers().parseEther(tokAmt), 0n, { value: ethers().parseEther(ethAmt) }
+    );
+    await tx.wait();
+    setStatus("Liquidity added! Tx: " + tx.hash);
+  } catch (e) {
+    setStatus("Add liquidity failed: " + (e.reason || e.message));
+  }
+}
+
+async function loadLPBalance() {
+  const tokenAddr = document.getElementById("lp-token").value;
+  if (!tokenAddr) { setStatus("Select a stock first."); return; }
+  const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, provider);
+  const poolAddr = await exchange.getPool(tokenAddr);
+  if (poolAddr === ethers().ZeroAddress) { setStatus("No pool exists."); return; }
+  const pool = new (ethers().Contract)(poolAddr, LP_ABI, provider);
+  const bal  = await pool.balanceOf(address);
+  document.getElementById("lp-balance-display").textContent = "LP Balance: " + fmt(bal);
+}
+
+async function removeLiquidity() {
+  const tokenAddr = document.getElementById("lp-token").value;
+  const lpAmt     = document.getElementById("lp-remove-amount").value;
+  if (!tokenAddr || !lpAmt) { setStatus("Fill LP remove fields."); return; }
+
+  try {
+    const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, signer);
+    const poolAddr = await exchange.getPool(tokenAddr);
+    const pool     = new (ethers().Contract)(poolAddr, LP_ABI, signer);
+    setStatus("Approving LP tokens...");
+    const appTx = await pool.approve(CONTRACTS.exchange, ethers().parseEther(lpAmt));
+    await appTx.wait();
+    setStatus("Removing liquidity...");
+    const tx = await exchange.removeLiquidity(
+      tokenAddr, ethers().parseEther(lpAmt), 0n, 0n
+    );
+    await tx.wait();
+    setStatus("Liquidity removed! Tx: " + tx.hash);
+  } catch (e) {
+    setStatus("Remove liquidity failed: " + (e.reason || e.message));
+  }
+}
+
+// ── KYC Apply Page ───────────────────────────────────────────────
+async function loadKYCStockCheckboxes() {
+  const div = document.getElementById("kyc-stock-checkboxes");
+  div.innerHTML = "";
+  for (const s of stockList.filter(s => s.isActive)) {
+    const token  = new (ethers().Contract)(s.tokenAddress, TOKEN_ABI, provider);
+    const isKYC  = await token.whitelisted(address);
+    const label  = document.createElement("label");
+    label.style.marginRight = "16px";
+    label.innerHTML = `
+      <input type="checkbox" value="${s.ticker}" ${isKYC ? "disabled checked" : ""} />
+      ${s.ticker} — ${s.name} ${isKYC ? "(already approved)" : ""}
+    `;
+    div.appendChild(label);
+  }
+}
+
+function submitKYC() {
+  const name  = document.getElementById("kyc-name").value.trim();
+  const cnic  = document.getElementById("kyc-cnic").value.trim();
+  const email = document.getElementById("kyc-email").value.trim();
+  const phone = document.getElementById("kyc-phone").value.trim();
+
+  if (!name || !cnic || !email) {
+    document.getElementById("kyc-submit-result").textContent = "Name, CNIC and Email are required.";
+    return;
+  }
+
+  const selected = [...document.querySelectorAll("#kyc-stock-checkboxes input:checked:not(:disabled)")]
+                     .map(cb => cb.value);
+
+  if (selected.length === 0) {
+    document.getElementById("kyc-submit-result").textContent = "Select at least one stock.";
+    return;
+  }
+
+  const requests = JSON.parse(localStorage.getItem("kyc_requests") || "[]");
+  requests.push({
+    id: Date.now().toString(),
+    fullName: name, cnic, email, phone,
+    address, tickers: selected,
+    status: "pending",
+    submittedAt: Date.now(),
+  });
+  localStorage.setItem("kyc_requests", JSON.stringify(requests));
+  document.getElementById("kyc-submit-result").textContent =
+    `Application submitted for: ${selected.join(", ")}. Awaiting KYC review.`;
+}
+
+// ── KYC Review Page ──────────────────────────────────────────────
+async function loadKYCRequests(filter) {
+  const all     = JSON.parse(localStorage.getItem("kyc_requests") || "[]");
+  const list    = filter === "all" ? all : all.filter(r => r.status === filter);
+  const tbody   = document.getElementById("kyc-tbody");
+  tbody.innerHTML = "";
+
+  if (list.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="8">No ${filter} requests.</td></tr>`;
+    return;
+  }
+
+  list.sort((a,b) => b.submittedAt - a.submittedAt).forEach(req => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${req.fullName}</td>
+      <td>${req.cnic}</td>
+      <td>${req.email}</td>
+      <td style="font-size:11px">${req.address?.slice(0,10)}...${req.address?.slice(-6)}</td>
+      <td>${req.tickers?.join(", ")}</td>
+      <td>${new Date(req.submittedAt).toLocaleDateString()}</td>
+      <td>${req.status}</td>
+      <td>
+        ${req.status === "pending" ? `
+          <button onclick="approveKYC('${req.id}')">Approve</button>
+          <button onclick="rejectKYC('${req.id}')">Reject</button>
+        ` : "—"}
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+async function approveKYC(id) {
+  const all = JSON.parse(localStorage.getItem("kyc_requests") || "[]");
+  const req = all.find(r => r.id === id);
+  if (!req) return;
+
+  setStatus(`Approving KYC for ${req.fullName}...`);
+  try {
+    const factory = new (ethers().Contract)(CONTRACTS.factory, FACTORY_ABI, provider);
+    for (const ticker of req.tickers) {
+      const tokenAddr = await factory.getTokenAddress(ticker);
+      const token     = new (ethers().Contract)(tokenAddr, TOKEN_ABI, signer);
+      const tx        = await token.setWhitelist(req.address, true);
+      await tx.wait();
+    }
+    req.status = "approved"; req.reviewedAt = Date.now();
+    localStorage.setItem("kyc_requests", JSON.stringify(all));
+    setStatus(`KYC approved for ${req.fullName}`);
+    loadKYCRequests("pending");
+  } catch (e) {
+    setStatus("Approval failed: " + (e.reason || e.message));
+  }
+}
+
+function rejectKYC(id) {
+  const all = JSON.parse(localStorage.getItem("kyc_requests") || "[]");
+  const req = all.find(r => r.id === id);
+  if (!req) return;
+  req.status = "rejected"; req.reviewedAt = Date.now();
+  localStorage.setItem("kyc_requests", JSON.stringify(all));
+  setStatus(`KYC rejected for ${req.fullName}`);
+  loadKYCRequests("pending");
+}
+
+// ── Admin Page ───────────────────────────────────────────────────
+async function loadAdminCompanies() {
+  if (!provider) return;
+  setStatus("Loading companies...");
+  const factory  = new (ethers().Contract)(CONTRACTS.factory,  FACTORY_ABI,  provider);
+  const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, provider);
+  const tbody    = document.getElementById("admin-companies-tbody");
+  tbody.innerHTML = "";
+
+  for (const s of stockList) {
+    const token    = new (ethers().Contract)(s.tokenAddress, TOKEN_ABI, provider);
+    const supply   = await token.totalSupply();
+    const poolAddr = await exchange.getPool(s.tokenAddress);
+    const hasPool  = poolAddr !== ethers().ZeroAddress;
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><b>${s.ticker}</b></td>
+      <td>${s.name}</td>
+      <td>${s.sector}</td>
+      <td>${fmt(supply)}</td>
+      <td>${hasPool ? '<span class="green">Yes</span>' : '<span class="red">No — <button onclick="createPool(\''+s.ticker+'\')">Create</button></span>'}</td>
+      <td>${s.isActive ? '<span class="green">Active</span>' : '<span class="red">Delisted</span>'}</td>
+      <td>${s.isActive ? `<button onclick="delistCompany('${s.ticker}')">Delist</button>` : "—"}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+  setStatus("Companies loaded.");
+}
+
+async function createPool(ticker) {
+  try {
+    setStatus(`Creating pool for ${ticker}...`);
+    const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, signer);
+    const tx = await exchange.createPool(ticker);
+    await tx.wait();
+    setStatus(`Pool created for ${ticker}! Tx: ${tx.hash}`);
+    loadAdminCompanies();
+  } catch (e) {
+    setStatus("Create pool failed: " + (e.reason || e.message));
+  }
+}
+
+async function delistCompany(ticker) {
+  if (!confirm(`Delist ${ticker}? This cannot be undone.`)) return;
+  try {
+    setStatus(`Delisting ${ticker}...`);
+    const factory = new (ethers().Contract)(CONTRACTS.factory, FACTORY_ABI, signer);
+    const tx = await factory.delistCompany(ticker);
+    await tx.wait();
+    setStatus(`${ticker} delisted. Tx: ${tx.hash}`);
+    await loadStockList();
+    loadAdminCompanies();
+  } catch (e) {
+    setStatus("Delist failed: " + (e.reason || e.message));
+  }
+}
+
+async function listCompany() {
+  const name   = document.getElementById("new-name").value.trim();
+  const ticker = document.getElementById("new-ticker").value.trim().toUpperCase();
+  const sector = document.getElementById("new-sector").value;
+  const supply = document.getElementById("new-supply").value;
+
+  if (!name || !ticker || !supply) { setStatus("Fill all fields."); return; }
+
+  try {
+    const factory  = new (ethers().Contract)(CONTRACTS.factory,  FACTORY_ABI,  signer);
+    const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, signer);
+
+    setStatus(`Listing ${ticker}...`);
+    const tx1 = await factory.listCompany(name, ticker, sector, BigInt(supply));
+    await tx1.wait();
+
+    setStatus(`${ticker} listed. Creating pool...`);
+    const tx2 = await exchange.createPool(ticker);
+    await tx2.wait();
+
+    setStatus(`${ticker} listed and pool created!`);
+    await loadStockList();
+    loadAdminCompanies();
+  } catch (e) {
+    setStatus("Listing failed: " + (e.reason || e.message));
+  }
+}
+
+async function loadFeeBalance() {
+  const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, provider);
+  const bal = await exchange.platformFeeBalance();
+  document.getElementById("fee-balance").textContent = fmt(bal) + " ETH";
+}
+
+async function withdrawFees() {
+  try {
+    setStatus("Withdrawing fees...");
+    const exchange = new (ethers().Contract)(CONTRACTS.exchange, EXCHANGE_ABI, signer);
+    const tx = await exchange.withdrawPlatformFees(address);
+    await tx.wait();
+    setStatus("Fees withdrawn! Tx: " + tx.hash);
+    loadFeeBalance();
+  } catch (e) {
+    setStatus("Withdrawal failed: " + (e.reason || e.message));
+  }
+}
+
+// ── Expose functions to HTML onclick handlers ───────────────────
+window.connectWallet   = connectWallet;
+window.disconnect      = disconnect;
+window.showPage        = showPage;
+window.loadMarket      = loadMarket;
+window.loadPortfolio   = loadPortfolio;
+window.getQuote        = getQuote;
+window.executeTrade    = executeTrade;
+window.quickBuy        = quickBuy;
+window.quickSell       = quickSell;
+window.addLiquidity    = addLiquidity;
+window.loadLPBalance   = loadLPBalance;
+window.removeLiquidity = removeLiquidity;
+window.submitKYC       = submitKYC;
+window.loadKYCRequests = loadKYCRequests;
+window.approveKYC      = approveKYC;
+window.rejectKYC       = rejectKYC;
+window.loadAdminCompanies = loadAdminCompanies;
+window.listCompany     = listCompany;
+window.createPool      = createPool;
+window.delistCompany   = delistCompany;
+window.loadFeeBalance  = loadFeeBalance;
+window.withdrawFees    = withdrawFees;
+
+</script>
+
+<!-- Load ethers.js from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/6.11.1/ethers.umd.min.js"></script>
+
+</body>
+</html>

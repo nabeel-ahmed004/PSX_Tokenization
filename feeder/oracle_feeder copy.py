@@ -21,9 +21,6 @@ import logging
 import schedule
 from datetime import datetime
 from dotenv import load_dotenv
-import pytz
-from datetime import timezone
-
 
 import yfinance as yf
 from web3 import Web3
@@ -164,66 +161,60 @@ _price_cache: dict = {}
 
 def fetch_single(yahoo_ticker: str):
     """
-    Fetch price via history() only.
-    
-    ticker.info is unreliable for .KA tickers — Yahoo Finance misclassifies
-    some as MUTUALFUND and returns stale metadata from months ago.
-    history(period='1d') fails with 'possibly delisted' for .KA tickers.
-    history(period='5d') is the most reliable source — always returns the
-    last actual trading day's closing price with a correct date.
+    Fetch the latest price for one ticker with a 3-level fallback chain.
+    Works during market hours, after hours, and when the market is closed.
+
+    Level 1 — fast_info.last_price
+      The current or most recently traded price.
+      Works during market hours and often after hours too.
+
+    Level 2 — info["regularMarketPrice"]
+      Yahoo Finance's "regular market price" field.
+      More reliable than fast_info when the market is closed because
+      Yahoo Finance explicitly stores the last closing price here.
+
+    Level 3 — history(period="5d").Close.iloc[-1]
+      Pull the last 5 days of daily closing prices and take the most
+      recent one. This always works — even on weekends — because it
+      reads from historical data rather than a live quote.
+
+    Returns float price in PKR, or None if all 3 levels fail.
     """
+
     ticker = yf.Ticker(yahoo_ticker)
 
-    # ── Level 1: history("5d") — most reliable for .KA tickers ───────────────
+    # ── Level 1: fast_info.last_price ─────────────────────────────────────────
     try:
-        hist = ticker.history(period="5d")
-        if hist is not None and not hist.empty:
-            price = float(hist["Close"].dropna().iloc[-1])
-            if price > 0:
-                log.debug(f"    {yahoo_ticker}: Level 1 (history 5d) → {price:.2f}")
-                return price
-    except (TypeError, KeyError, IndexError, Exception) as e:
+        price = ticker.fast_info.last_price
+        if price and float(price) > 0:
+            log.debug(f"    {yahoo_ticker}: Level 1 (fast_info) → {price:.2f}")
+            return float(price)
+    except Exception as e:
         log.debug(f"    {yahoo_ticker}: Level 1 failed — {e}")
 
-    # ── Level 2: history("1mo") ────────────────────────────────────────────────
+    # ── Level 2: info["regularMarketPrice"] ───────────────────────────────────
     try:
-        hist = ticker.history(period="1mo")
-        if hist is not None and not hist.empty:
-            price = float(hist["Close"].dropna().iloc[-1])
-            if price > 0:
-                log.debug(f"    {yahoo_ticker}: Level 2 (history 1mo) → {price:.2f}")
-                return price
-    except (TypeError, KeyError, IndexError, Exception) as e:
+        info  = ticker.info
+        price = info.get("regularMarketPrice") or info.get("currentPrice")
+        if price and float(price) > 0:
+            log.debug(f"    {yahoo_ticker}: Level 2 (info) → {price:.2f}")
+            return float(price)
+    except Exception as e:
         log.debug(f"    {yahoo_ticker}: Level 2 failed — {e}")
 
-    # ── Level 3: history("3mo") ────────────────────────────────────────────────
+    # ── Level 3: history(period="5d") — last available closing price ──────────
     try:
-        hist = ticker.history(period="3mo")
-        if hist is not None and not hist.empty:
+        hist  = ticker.history(period="5d")
+        if not hist.empty:
             price = float(hist["Close"].dropna().iloc[-1])
             if price > 0:
-                log.debug(f"    {yahoo_ticker}: Level 3 (history 3mo) → {price:.2f}")
+                log.debug(f"    {yahoo_ticker}: Level 3 (history) → {price:.2f}")
                 return price
-    except (TypeError, KeyError, IndexError, Exception) as e:
+    except Exception as e:
         log.debug(f"    {yahoo_ticker}: Level 3 failed — {e}")
 
     return None
 
-def fetch_single_with_date(yahoo_ticker: str):
-    """Returns (price, date) tuple or (None, None)"""
-    ticker = yf.Ticker(yahoo_ticker)
-    for period in ["5d", "1mo", "3mo"]:
-        try:
-            hist = ticker.history(period=period)
-            if hist is not None and not hist.empty:
-                clean = hist["Close"].dropna()
-                price = float(clean.iloc[-1])
-                date  = clean.index[-1].date()
-                if price > 0:
-                    return price, date
-        except Exception as e:
-            log.debug(f"    {yahoo_ticker}: period={period} failed — {e}")
-    return None, None
 
 def fetch_prices() -> dict:
     """
@@ -237,14 +228,13 @@ def fetch_prices() -> dict:
     prices = {}
 
     for psx_ticker, yahoo_ticker in TICKER_MAP.items():
-        price, price_date = fetch_single_with_date(yahoo_ticker)
+        price = fetch_single(yahoo_ticker)
+
         if price is not None:
-            from datetime import date
-            days_old = (date.today() - price_date).days
-            staleness = f"(live, {price_date})" if days_old <= 3 else f"(WARNING: {days_old} days old — {price_date})"
+            # Fresh price — update cache and use it
             _price_cache[psx_ticker] = price
             prices[psx_ticker] = price
-            log.info(f"  {psx_ticker.ljust(6)} Rs. {price:,.2f}  {staleness}")
+            log.info(f"  {psx_ticker.ljust(6)} Rs. {price:,.2f}  (live)")
 
         elif psx_ticker in _price_cache:
             # All 3 levels failed — fall back to last known price

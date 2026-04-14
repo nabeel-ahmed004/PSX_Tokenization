@@ -1,15 +1,19 @@
 """
 PSX Price Oracle Feeder
 =======================
-Fetches real-time PSX stock prices using yfinance (Yahoo Finance)
-and pushes them on-chain to the PSXOracle smart contract.
+Fetches real-time PSX stock prices from the official PSX data portal
+(dps.psx.com.pk) and pushes them on-chain to the PSXOracle smart contract.
+
+Data source: https://dps.psx.com.pk  (reverse-engineered from frontend JS)
+  /timeseries/int/{symbol}  →  [[unix_ts, price, volume], ...]   intraday ticks
+  /timeseries/eod/{symbol}  →  [[unix_ts, close, volume, open], ...]  daily EOD
 
 Compatible with:
   web3.py  >= 6.0
-  yfinance >= 0.2.37
+  requests >= 2.31
 
 Setup:
-  pip install -r requirements.txt
+  pip install web3 requests python-dotenv schedule
 
 Run:
   python oracle_feeder.py
@@ -19,13 +23,10 @@ import os
 import time
 import logging
 import schedule
-from datetime import datetime
+import requests
+from datetime import datetime, date
 from dotenv import load_dotenv
-import pytz
-from datetime import timezone
 
-
-import yfinance as yf
 from web3 import Web3
 
 # ── web3.py v6 correct import ─────────────────────────────────────────────────
@@ -46,39 +47,39 @@ FEEDER_PRIVATE_KEY = os.getenv("FEEDER_PRIVATE_KEY") or os.getenv("PRIVATE_KEY")
 ORACLE_ADDRESS     = os.getenv("ORACLE_ADDRESS", "")
 PRICE_SCALE        = 10 ** 8
 
-# PSX ticker → Yahoo Finance ticker (.KA = Karachi Stock Exchange)
-# 15 companies across 7 sectors — all verified on Yahoo Finance
+# PSX ticker symbols — used directly with dps.psx.com.pk API
+# No Yahoo Finance suffix needed; these are the canonical PSX symbols
 TICKER_MAP = {
     # Energy
-    "OGDC":  "OGDC.KA",   # Oil & Gas Development Company
-    "PPL":   "PPL.KA",    # Pakistan Petroleum Limited
-    "PSO":   "PSO.KA",    # Pakistan State Oil
+    "OGDC":  "OGDC",   # Oil & Gas Development Company
+    "PPL":   "PPL",    # Pakistan Petroleum Limited
+    "PSO":   "PSO",    # Pakistan State Oil
 
     # Banking
-    "HBL":   "HBL.KA",    # Habib Bank Limited
-    "UBL":   "UBL.KA",    # United Bank Limited
-    "MCB":   "MCB.KA",    # MCB Bank Limited
-    "BAFL":  "BAFL.KA",   # Bank Alfalah Limited
+    "HBL":   "HBL",    # Habib Bank Limited
+    "UBL":   "UBL",    # United Bank Limited
+    "MCB":   "MCB",    # MCB Bank Limited
+    "BAFL":  "BAFL",   # Bank Alfalah Limited
 
     # Fertilizer
-    "ENGRO": "ENGRO.KA",  # Engro Corporation
-    "FFC":   "FFC.KA",    # Fauji Fertilizer Company
+    "ENGRO": "ENGRO",  # Engro Corporation
+    "FFC":   "FFC",    # Fauji Fertilizer Company
 
     # Cement
-    "LUCK":  "LUCK.KA",   # Lucky Cement
-    "DGKC":  "DGKC.KA",  # D.G. Khan Cement
+    "LUCK":  "LUCK",   # Lucky Cement
+    "DGKC":  "DGKC",  # D.G. Khan Cement
 
     # Textile
-    "NML":   "NML.KA",    # Nishat Mills Limited
+    "NML":   "NML",    # Nishat Mills Limited
 
     # Technology
-    "SYS":   "SYS.KA",    # Systems Limited
+    "SYS":   "SYS",    # Systems Limited
 
     # Power
-    "HUBC":  "HUBC.KA",   # Hub Power Company (replaced PSMC — not on Yahoo Finance)
+    "HUBC":  "HUBC",   # Hub Power Company
 
     # Pharmaceuticals
-    "SEARL": "SEARL.KA",  # The Searle Company
+    "SEARL": "SEARL",  # The Searle Company
 }
 
 # ──────────────────────────────────────────────────────────────────────────────
@@ -130,7 +131,7 @@ ORACLE_ABI = [
 def connect_web3():
     w3 = Web3(Web3.HTTPProvider(RPC_URL))
 
-    # FIXED: correct web3.py v6 middleware — handles POA chain extraData
+    # Handles POA chain extraData field (required for Sepolia / testnets)
     w3.middleware_onion.inject(ExtraDataToPOAMiddleware, layer=0)
 
     if not w3.is_connected():
@@ -143,7 +144,10 @@ def connect_web3():
     )
 
     balance = w3.eth.get_balance(account.address)
-    log.info(f"Connected | Feeder: {account.address} | Balance: {w3.from_wei(balance, 'ether'):.4f} ETH")
+    log.info(
+        f"Connected | Feeder: {account.address} | "
+        f"Balance: {w3.from_wei(balance, 'ether'):.4f} ETH"
+    )
 
     if balance == 0:
         log.warning("Feeder wallet has 0 ETH — fund it before pushing prices")
@@ -151,84 +155,96 @@ def connect_web3():
     return w3, account, contract
 
 # ──────────────────────────────────────────────────────────────────────────────
-#  Price Cache — persists last known prices across runs
+#  Price Cache — in-memory, persists last known price per ticker per process run
 # ──────────────────────────────────────────────────────────────────────────────
 
-# In-memory cache: { psx_ticker: float_price }
-# Populated on first successful fetch, used as fallback when Yahoo is unavailable
-_price_cache: dict = {}
+_price_cache: dict = {}   # { psx_ticker: float_price }
 
 # ──────────────────────────────────────────────────────────────────────────────
-#  Price Fetching — 3-level fallback chain
+#  PSX Official API helpers
 # ──────────────────────────────────────────────────────────────────────────────
 
-def fetch_single(yahoo_ticker: str):
+PSX_BASE    = "https://dps.psx.com.pk"
+PSX_HEADERS = {
+    "User-Agent":       "Mozilla/5.0",
+    "X-Requested-With": "XMLHttpRequest",
+}
+PSX_TIMEOUT = 10  # seconds per request
+
+
+def _psx_get(path: str) -> dict | None:
     """
-    Fetch price via history() only.
-    
-    ticker.info is unreliable for .KA tickers — Yahoo Finance misclassifies
-    some as MUTUALFUND and returns stale metadata from months ago.
-    history(period='1d') fails with 'possibly delisted' for .KA tickers.
-    history(period='5d') is the most reliable source — always returns the
-    last actual trading day's closing price with a correct date.
+    GET a single PSX API path and return parsed JSON.
+    Returns None on any network or parse error — never raises.
     """
-    ticker = yf.Ticker(yahoo_ticker)
-
-    # ── Level 1: history("5d") — most reliable for .KA tickers ───────────────
     try:
-        hist = ticker.history(period="5d")
-        if hist is not None and not hist.empty:
-            price = float(hist["Close"].dropna().iloc[-1])
-            if price > 0:
-                log.debug(f"    {yahoo_ticker}: Level 1 (history 5d) → {price:.2f}")
-                return price
-    except (TypeError, KeyError, IndexError, Exception) as e:
-        log.debug(f"    {yahoo_ticker}: Level 1 failed — {e}")
+        r = requests.get(
+            PSX_BASE + path,
+            headers=PSX_HEADERS,
+            timeout=PSX_TIMEOUT,
+        )
+        r.raise_for_status()
+        return r.json()
+    except Exception as e:
+        log.debug(f"PSX request failed [{path}]: {e}")
+        return None
 
-    # ── Level 2: history("1mo") ────────────────────────────────────────────────
-    try:
-        hist = ticker.history(period="1mo")
-        if hist is not None and not hist.empty:
-            price = float(hist["Close"].dropna().iloc[-1])
-            if price > 0:
-                log.debug(f"    {yahoo_ticker}: Level 2 (history 1mo) → {price:.2f}")
-                return price
-    except (TypeError, KeyError, IndexError, Exception) as e:
-        log.debug(f"    {yahoo_ticker}: Level 2 failed — {e}")
 
-    # ── Level 3: history("3mo") ────────────────────────────────────────────────
+# ──────────────────────────────────────────────────────────────────────────────
+#  Price Fetching — 2-level fallback chain (intraday → EOD)
+# ──────────────────────────────────────────────────────────────────────────────
+
+def fetch_single(psx_ticker: str) -> float | None:
+    """
+    Fetch the latest price for one PSX ticker using the official PSX data API.
+
+    Level 1 — /timeseries/int/{ticker}  (intraday ticks)
+      Returns [[unix_ts, price, volume], ...] sorted newest-first.
+      The first entry is the most recently traded price.
+      Works during market hours (09:30–15:30 PKT, Mon–Fri).
+      Falls back gracefully if the market is closed or the feed is empty.
+
+    Level 2 — /timeseries/eod/{ticker}  (end-of-day history)
+      Returns [[unix_ts, close, volume, open], ...] sorted newest-first.
+      The first entry is the most recent session's closing price.
+      Always available — used outside market hours and as a safety net.
+
+    Returns float price in PKR, or None if both levels fail.
+    """
+
+    # ── Level 1: intraday ticks ───────────────────────────────────────────────
     try:
-        hist = ticker.history(period="3mo")
-        if hist is not None and not hist.empty:
-            price = float(hist["Close"].dropna().iloc[-1])
-            if price > 0:
-                log.debug(f"    {yahoo_ticker}: Level 3 (history 3mo) → {price:.2f}")
-                return price
-    except (TypeError, KeyError, IndexError, Exception) as e:
-        log.debug(f"    {yahoo_ticker}: Level 3 failed — {e}")
+        resp = _psx_get(f"/timeseries/int/{psx_ticker}")
+        if resp and resp.get("status") == 1:
+            data = resp.get("data", [])
+            if data:
+                price = float(data[0][1])
+                if price > 0:
+                    log.debug(f"    {psx_ticker}: Level 1 (intraday) → {price:.2f}")
+                    return price
+    except Exception as e:
+        log.debug(f"    {psx_ticker}: Level 1 failed — {e}")
+
+    # ── Level 2: EOD history ──────────────────────────────────────────────────
+    try:
+        resp = _psx_get(f"/timeseries/eod/{psx_ticker}")
+        if resp and resp.get("status") == 1:
+            data = resp.get("data", [])
+            if data:
+                price = float(data[0][1])
+                if price > 0:
+                    log.debug(f"    {psx_ticker}: Level 2 (EOD) → {price:.2f}")
+                    return price
+    except Exception as e:
+        log.debug(f"    {psx_ticker}: Level 2 failed — {e}")
 
     return None
 
-def fetch_single_with_date(yahoo_ticker: str):
-    """Returns (price, date) tuple or (None, None)"""
-    ticker = yf.Ticker(yahoo_ticker)
-    for period in ["5d", "1mo", "3mo"]:
-        try:
-            hist = ticker.history(period=period)
-            if hist is not None and not hist.empty:
-                clean = hist["Close"].dropna()
-                price = float(clean.iloc[-1])
-                date  = clean.index[-1].date()
-                if price > 0:
-                    return price, date
-        except Exception as e:
-            log.debug(f"    {yahoo_ticker}: period={period} failed — {e}")
-    return None, None
 
 def fetch_prices() -> dict:
     """
-    Fetch all configured PSX tickers using the 3-level fallback chain.
-    If all 3 levels fail for a ticker, uses the last cached price.
+    Fetch all configured PSX tickers.
+    On failure for a ticker, falls back to last cached price.
     If no cache exists for that ticker, skips it with a warning.
 
     Returns dict: { psx_ticker: float_price_in_pkr }
@@ -236,27 +252,23 @@ def fetch_prices() -> dict:
     """
     prices = {}
 
-    for psx_ticker, yahoo_ticker in TICKER_MAP.items():
-        price, price_date = fetch_single_with_date(yahoo_ticker)
+    for psx_ticker in TICKER_MAP:
+        price = fetch_single(psx_ticker)
+
         if price is not None:
-            from datetime import date
-            days_old = (date.today() - price_date).days
-            staleness = f"(live, {price_date})" if days_old <= 3 else f"(WARNING: {days_old} days old — {price_date})"
             _price_cache[psx_ticker] = price
             prices[psx_ticker] = price
-            log.info(f"  {psx_ticker.ljust(6)} Rs. {price:,.2f}  {staleness}")
+            log.info(f"  {psx_ticker.ljust(6)} Rs. {price:,.2f}")
 
         elif psx_ticker in _price_cache:
-            # All 3 levels failed — fall back to last known price
             cached = _price_cache[psx_ticker]
             prices[psx_ticker] = cached
             log.warning(
                 f"  {psx_ticker.ljust(6)} Rs. {cached:,.2f}  "
-                f"(cached — Yahoo Finance unavailable)"
+                f"(cached — PSX API unavailable)"
             )
 
         else:
-            # Never fetched before and all levels failed — skip this ticker
             log.warning(
                 f"  {psx_ticker.ljust(6)} SKIPPED — no live data and no cache yet"
             )
@@ -289,13 +301,16 @@ def push_prices(w3, account, contract, prices: dict):
 
         signed  = w3.eth.account.sign_transaction(tx, FEEDER_PRIVATE_KEY)
 
-        # FIXED: web3.py v6 uses .raw_transaction (not .rawTransaction)
+        # web3.py v6 uses .raw_transaction (not .rawTransaction)
         tx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)
         log.info(f"  Tx: {tx_hash.hex()}")
 
         receipt = w3.eth.wait_for_transaction_receipt(tx_hash, timeout=120)
         if receipt.status == 1:
-            log.info(f"  Confirmed in block {receipt.blockNumber} | gas: {receipt.gasUsed:,}")
+            log.info(
+                f"  Confirmed in block {receipt.blockNumber} | "
+                f"gas: {receipt.gasUsed:,}"
+            )
         else:
             log.error("  Transaction reverted — check feeder authorization")
 
@@ -308,7 +323,8 @@ def verify_on_chain(contract, ticker: str):
         price, updated_at, round_id = contract.functions.getLatestPrice(ticker).call()
         log.info(
             f"  On-chain {ticker}: Rs. {price / PRICE_SCALE:,.2f} "
-            f"| Round #{round_id} | at {datetime.fromtimestamp(updated_at).strftime('%H:%M:%S')}"
+            f"| Round #{round_id} "
+            f"| at {datetime.fromtimestamp(updated_at).strftime('%H:%M:%S')}"
         )
     except Exception as e:
         log.warning(f"  Read-back failed for {ticker}: {e}")
@@ -322,11 +338,11 @@ def oracle_job(w3, account, contract):
     log.info(f"Run at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     log.info("─" * 50)
 
-    log.info("Fetching from Yahoo Finance...")
+    log.info("Fetching from PSX official API (dps.psx.com.pk)...")
     prices = fetch_prices()
 
     if not prices:
-        log.error("No prices — market may be closed. Skipping.")
+        log.error("No prices fetched — skipping this round.")
         return
 
     push_prices(w3, account, contract, prices)

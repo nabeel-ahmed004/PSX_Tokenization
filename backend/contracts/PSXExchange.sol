@@ -130,8 +130,8 @@ contract PSXExchange is ReentrancyGuard {
         pools[tokenAddr] = pool;
         allPools.push(pool);
 
-        // Allow pool to transfer tokens without whitelist check
-        PSXToken(tokenAddr).setTrustedContract(pool, true);
+        // // Allow pool to transfer tokens without whitelist check
+        // PSXToken(tokenAddr).setTrustedContract(pool, true);
 
         emit PoolCreated(tokenAddr, pool, _ticker);
     }
@@ -162,7 +162,7 @@ contract PSXExchange is ReentrancyGuard {
         // Pull tokens from user directly into the pool
         require(
             IERC20(_token).transferFrom(msg.sender, address(pool), _tokenAmount),
-            "Exchange: token transfer failed — did you approve?"
+            "Exchange: token transfer failed - did you approve?"
         );
 
         // Forward ETH to pool; pool mints LP tokens to provider
@@ -208,7 +208,7 @@ contract PSXExchange is ReentrancyGuard {
         // Step 1: Pull LP tokens from user → exchange
         require(
             IERC20(address(pool)).transferFrom(msg.sender, address(this), _lpAmount),
-            "Exchange: LP token transfer failed — did you approve?"
+            "Exchange: LP token transfer failed - did you approve?"
         );
 
         // Step 2: FIXED — preview outputs BEFORE executing, then check slippage
@@ -324,7 +324,7 @@ contract PSXExchange is ReentrancyGuard {
         // Step 3: Pull tokens from seller → pool
         require(
             IERC20(_token).transferFrom(msg.sender, address(pool), _tokenAmount),
-            "Exchange: token transfer failed — did you approve?"
+            "Exchange: token transfer failed - did you approve?"
         );
 
         // Step 4: Execute swap — pass 0 as min since we already checked above

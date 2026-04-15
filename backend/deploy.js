@@ -111,6 +111,16 @@ async function main() {
   }
   console.log();
 
+  // ─── 5b. Authorize pools on tokens ───────────────────────────────────────
+  console.log("5b. Authorizing pools on tokens...");
+  for (const company of companies) {
+    const tokenAddr = tokenAddresses[company.ticker];
+    const poolAddr  = poolAddresses[company.ticker];
+    const token = await ethers.getContractAt("PSXToken", tokenAddr);
+    await (await token.setTrustedContract(poolAddr, true)).wait();
+    console.log(`   ✅ ${company.ticker.padEnd(6)} pool authorized`);
+  }
+
   // ─── 6. Register Tickers on Oracle ───────────────────────────────────────
   console.log("6️⃣  Registering tickers on PSXOracle...");
   const tickers = companies.map(c => c.ticker);

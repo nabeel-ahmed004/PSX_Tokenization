@@ -8,7 +8,7 @@ Data source: https://dps.psx.com.pk  (reverse-engineered from frontend JS)
   /timeseries/int/{symbol}  →  [[unix_ts, price, volume], ...]   intraday ticks
   /timeseries/eod/{symbol}  →  [[unix_ts, close, volume, open], ...]  daily EOD
 
-Compatible with:
+Compatible with: 
   web3.py  >= 6.0
   requests >= 2.31
 
@@ -289,20 +289,26 @@ def push_prices(w3, account, contract, prices: dict):
 
     log.info(f"Pushing {len(tickers_list)} prices: {tickers_list}")
 
+    gas_price = w3.eth.gas_price
+    nonce = w3.eth.get_transaction_count(account.address)
+    balance = w3.eth.get_balance(account.address)
+    log.info(f"  Debug: balance={w3.from_wei(balance,'ether'):.4f} ETH, gasPrice={gas_price}, nonce={nonce}")
+    
     try:
         tx = contract.functions.batchUpdatePrices(
-            tickers_list, prices_list
+        tickers_list, prices_list
         ).build_transaction({
             "from":     account.address,
             "nonce":    w3.eth.get_transaction_count(account.address),
-            "gasPrice": w3.eth.gas_price,
-            "gas":      500_000,
+            "gasPrice": w3.to_wei(1, "gwei"),   # ← hardcode instead of w3.eth.gas_price
+            "gas":      2_000_000,
         })
+
 
         signed  = w3.eth.account.sign_transaction(tx, FEEDER_PRIVATE_KEY)
 
         # web3.py v6 uses .raw_transaction (not .rawTransaction)
-        tx_hash = w3.eth.send_raw_transaction(signed.raw_transaction)
+        tx_hash = w3.eth.send_raw_transaction(signed.rawTransaction)
         log.info(f"  Tx: {tx_hash.hex()}")
 
         receipt = w3.eth.wait_for_transaction_receipt(tx_hash, timeout=120)

@@ -1,2 +1,1114 @@
 2026-04-07 10:57:16,579 [INFO] PSX Oracle Feeder starting...
 2026-04-07 10:57:16,579 [ERROR] Fatal: FEEDER_PRIVATE_KEY not set in .env
+2026-04-15 10:44:34,670 [INFO] PSX Oracle Feeder starting...
+2026-04-15 10:44:34,671 [ERROR] Fatal: FEEDER_PRIVATE_KEY not set in .env
+2026-04-15 10:45:43,176 [INFO] PSX Oracle Feeder starting...
+2026-04-15 10:45:43,177 [ERROR] Fatal: ORACLE_ADDRESS not set in .env — deploy PSXOracle first
+2026-04-15 10:46:25,120 [INFO] PSX Oracle Feeder starting...
+2026-04-15 10:46:26,453 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 0.0000 ETH
+2026-04-15 10:46:26,453 [INFO] ──────────────────────────────────────────────────
+2026-04-15 10:46:26,453 [INFO] Run at 2026-04-15 10:46:26
+2026-04-15 10:46:26,454 [INFO] ──────────────────────────────────────────────────
+2026-04-15 10:46:26,454 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 10:46:27,806 [INFO]   OGDC   Rs. 305.20
+2026-04-15 10:46:29,619 [INFO]   PPL    Rs. 223.90
+2026-04-15 10:46:31,276 [INFO]   PSO    Rs. 370.50
+2026-04-15 10:46:33,012 [INFO]   HBL    Rs. 307.95
+2026-04-15 10:46:34,544 [INFO]   UBL    Rs. 362.98
+2026-04-15 10:46:36,234 [INFO]   MCB    Rs. 413.00
+2026-04-15 10:46:37,589 [INFO]   BAFL   Rs. 123.15
+2026-04-15 10:46:39,099 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 10:46:41,635 [INFO]   FFC    Rs. 539.98
+2026-04-15 10:46:42,965 [INFO]   LUCK   Rs. 447.99
+2026-04-15 10:46:44,173 [INFO]   DGKC   Rs. 202.20
+2026-04-15 10:46:45,874 [INFO]   NML    Rs. 158.18
+2026-04-15 10:46:47,808 [INFO]   SYS    Rs. 153.83
+2026-04-15 10:46:49,462 [INFO]   HUBC   Rs. 218.00
+2026-04-15 10:46:51,166 [INFO]   SEARL  Rs. 95.80
+2026-04-15 10:46:51,166 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 10:46:51,850 [ERROR] Push failed: 'SignedTransaction' object has no attribute 'raw_transaction'
+2026-04-15 10:46:52,874 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 10:46:52,874 [INFO] Done. Next run in 5 min.
+
+2026-04-15 10:46:52,875 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 10:50:43,669 [INFO] PSX Oracle Feeder starting...
+2026-04-15 10:50:44,620 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 0.0000 ETH
+2026-04-15 10:50:44,621 [INFO] ──────────────────────────────────────────────────
+2026-04-15 10:50:44,621 [INFO] Run at 2026-04-15 10:50:44
+2026-04-15 10:50:44,621 [INFO] ──────────────────────────────────────────────────
+2026-04-15 10:50:44,621 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 10:50:46,402 [INFO]   OGDC   Rs. 304.80
+2026-04-15 10:50:48,538 [INFO]   PPL    Rs. 223.98
+2026-04-15 10:50:49,880 [INFO]   PSO    Rs. 370.00
+2026-04-15 10:50:51,317 [INFO]   HBL    Rs. 307.00
+2026-04-15 10:50:52,591 [INFO]   UBL    Rs. 362.51
+2026-04-15 10:50:53,986 [INFO]   MCB    Rs. 413.00
+2026-04-15 10:50:55,611 [INFO]   BAFL   Rs. 123.10
+2026-04-15 10:50:57,537 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 10:50:59,035 [INFO]   FFC    Rs. 539.48
+2026-04-15 10:51:01,143 [INFO]   LUCK   Rs. 446.79
+2026-04-15 10:51:02,758 [INFO]   DGKC   Rs. 201.39
+2026-04-15 10:51:03,892 [INFO]   NML    Rs. 157.99
+2026-04-15 10:51:05,264 [INFO]   SYS    Rs. 153.51
+2026-04-15 10:51:06,980 [INFO]   HUBC   Rs. 218.01
+2026-04-15 10:51:09,396 [INFO]   SEARL  Rs. 95.70
+2026-04-15 10:51:09,397 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 10:51:10,167 [ERROR] Push failed: 'SignedTransaction' object has no attribute 'raw_transaction'
+2026-04-15 10:51:10,857 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 10:51:10,858 [INFO] Done. Next run in 5 min.
+
+2026-04-15 10:51:10,880 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 10:52:38,141 [INFO] Oracle feeder stopped.
+2026-04-15 10:56:22,728 [INFO] PSX Oracle Feeder starting...
+2026-04-15 10:56:23,606 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 0.0000 ETH
+2026-04-15 10:56:23,606 [INFO] ──────────────────────────────────────────────────
+2026-04-15 10:56:23,607 [INFO] Run at 2026-04-15 10:56:23
+2026-04-15 10:56:23,607 [INFO] ──────────────────────────────────────────────────
+2026-04-15 10:56:23,607 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 10:56:25,635 [INFO]   OGDC   Rs. 304.80
+2026-04-15 10:56:26,476 [INFO] Oracle feeder stopped.
+2026-04-15 10:58:08,939 [INFO] PSX Oracle Feeder starting...
+2026-04-15 10:58:09,655 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 0.0000 ETH
+2026-04-15 10:58:09,656 [INFO] ──────────────────────────────────────────────────
+2026-04-15 10:58:09,656 [INFO] Run at 2026-04-15 10:58:09
+2026-04-15 10:58:09,656 [INFO] ──────────────────────────────────────────────────
+2026-04-15 10:58:09,657 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 10:58:11,009 [INFO]   OGDC   Rs. 304.80
+2026-04-15 10:58:12,572 [INFO]   PPL    Rs. 223.80
+2026-04-15 10:58:14,037 [INFO]   PSO    Rs. 369.89
+2026-04-15 10:58:15,409 [INFO]   HBL    Rs. 307.27
+2026-04-15 10:58:17,060 [INFO]   UBL    Rs. 362.88
+2026-04-15 10:58:19,040 [INFO]   MCB    Rs. 413.00
+2026-04-15 10:58:20,840 [INFO]   BAFL   Rs. 123.00
+2026-04-15 10:58:22,316 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 10:58:23,679 [INFO]   FFC    Rs. 539.00
+2026-04-15 10:58:25,755 [INFO]   LUCK   Rs. 446.40
+2026-04-15 10:58:26,961 [INFO]   DGKC   Rs. 201.00
+2026-04-15 10:58:28,373 [INFO]   NML    Rs. 158.00
+2026-04-15 10:58:29,846 [INFO]   SYS    Rs. 153.50
+2026-04-15 10:58:31,604 [INFO]   HUBC   Rs. 217.75
+2026-04-15 10:58:33,058 [INFO]   SEARL  Rs. 95.80
+2026-04-15 10:58:33,059 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 10:58:33,701 [ERROR] Push failed: 'SignedTransaction' object has no attribute 'raw_transaction'
+2026-04-15 10:58:34,539 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 10:58:34,539 [INFO] Done. Next run in 5 min.
+
+2026-04-15 10:58:34,540 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 12:14:59,527 [INFO] PSX Oracle Feeder starting...
+2026-04-15 12:15:00,493 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 0.0000 ETH
+2026-04-15 12:15:00,494 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:15:00,494 [INFO] Run at 2026-04-15 12:15:00
+2026-04-15 12:15:00,494 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:15:00,494 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 12:15:02,589 [INFO]   OGDC   Rs. 306.50
+2026-04-15 12:15:04,937 [INFO]   PPL    Rs. 224.35
+2026-04-15 12:15:06,684 [INFO]   PSO    Rs. 372.00
+2026-04-15 12:15:08,626 [INFO]   HBL    Rs. 308.39
+2026-04-15 12:15:11,410 [INFO]   UBL    Rs. 373.09
+2026-04-15 12:15:13,749 [INFO]   MCB    Rs. 413.96
+2026-04-15 12:15:16,063 [INFO]   BAFL   Rs. 123.69
+2026-04-15 12:15:17,710 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 12:15:19,434 [INFO]   FFC    Rs. 541.00
+2026-04-15 12:15:21,222 [INFO]   LUCK   Rs. 447.00
+2026-04-15 12:15:23,369 [INFO]   DGKC   Rs. 200.00
+2026-04-15 12:15:25,176 [INFO]   NML    Rs. 158.90
+2026-04-15 12:15:26,816 [INFO]   SYS    Rs. 153.80
+2026-04-15 12:15:28,026 [INFO]   HUBC   Rs. 219.25
+2026-04-15 12:15:29,738 [INFO]   SEARL  Rs. 96.24
+2026-04-15 12:15:29,739 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 12:15:30,323 [ERROR] Push failed: 'SignedTransaction' object has no attribute 'raw_transaction'
+2026-04-15 12:15:30,873 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 12:15:30,874 [INFO] Done. Next run in 5 min.
+
+2026-04-15 12:15:30,874 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 12:18:14,954 [INFO] Oracle feeder stopped.
+2026-04-15 12:18:16,800 [INFO] PSX Oracle Feeder starting...
+2026-04-15 12:18:18,371 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 0.0000 ETH
+2026-04-15 12:18:18,372 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:18:18,372 [INFO] Run at 2026-04-15 12:18:18
+2026-04-15 12:18:18,372 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:18:18,372 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 12:18:21,246 [INFO]   OGDC   Rs. 306.50
+2026-04-15 12:18:23,191 [INFO]   PPL    Rs. 224.35
+2026-04-15 12:18:25,393 [INFO]   PSO    Rs. 372.00
+2026-04-15 12:18:27,438 [INFO]   HBL    Rs. 308.39
+2026-04-15 12:18:29,746 [INFO]   UBL    Rs. 373.09
+2026-04-15 12:18:32,405 [INFO]   MCB    Rs. 413.96
+2026-04-15 12:18:34,449 [INFO]   BAFL   Rs. 123.69
+2026-04-15 12:18:36,908 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 12:18:39,113 [INFO]   FFC    Rs. 541.00
+2026-04-15 12:18:41,213 [INFO]   LUCK   Rs. 447.00
+2026-04-15 12:18:43,440 [INFO]   DGKC   Rs. 200.00
+2026-04-15 12:18:46,127 [INFO]   NML    Rs. 158.90
+2026-04-15 12:18:48,687 [INFO]   SYS    Rs. 153.80
+2026-04-15 12:18:51,452 [INFO]   HUBC   Rs. 219.25
+2026-04-15 12:18:53,804 [INFO]   SEARL  Rs. 96.24
+2026-04-15 12:18:53,804 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 12:18:55,034 [ERROR] Push failed: {'code': 3, 'message': 'insufficient funds for gas * price + value'}
+2026-04-15 12:18:56,155 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 12:18:56,156 [INFO] Done. Next run in 5 min.
+
+2026-04-15 12:18:56,156 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 12:21:02,366 [INFO] Oracle feeder stopped.
+2026-04-15 12:21:08,864 [INFO] PSX Oracle Feeder starting...
+2026-04-15 12:21:11,120 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 0.0000 ETH
+2026-04-15 12:21:11,120 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:21:11,120 [INFO] Run at 2026-04-15 12:21:11
+2026-04-15 12:21:11,120 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:21:11,120 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 12:21:13,683 [INFO]   OGDC   Rs. 306.62
+2026-04-15 12:21:17,709 [INFO]   PPL    Rs. 224.80
+2026-04-15 12:21:20,245 [INFO]   PSO    Rs. 372.50
+2026-04-15 12:21:22,899 [INFO]   HBL    Rs. 308.60
+2026-04-15 12:21:25,980 [INFO]   UBL    Rs. 372.82
+2026-04-15 12:21:28,624 [INFO]   MCB    Rs. 413.00
+2026-04-15 12:21:30,936 [INFO]   BAFL   Rs. 123.60
+2026-04-15 12:21:35,499 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 12:21:38,262 [INFO]   FFC    Rs. 541.98
+2026-04-15 12:21:40,516 [INFO]   LUCK   Rs. 447.78
+2026-04-15 12:21:42,765 [INFO]   DGKC   Rs. 200.30
+2026-04-15 12:21:45,601 [INFO]   NML    Rs. 158.91
+2026-04-15 12:21:48,046 [INFO]   SYS    Rs. 154.25
+2026-04-15 12:21:50,767 [INFO]   HUBC   Rs. 221.01
+2026-04-15 12:21:52,903 [INFO]   SEARL  Rs. 96.60
+2026-04-15 12:21:52,903 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 12:21:54,128 [ERROR] Push failed: {'code': 3, 'message': 'insufficient funds for gas * price + value'}
+2026-04-15 12:21:55,304 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 12:21:55,304 [INFO] Done. Next run in 5 min.
+
+2026-04-15 12:21:55,353 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 12:26:55,427 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:26:55,428 [INFO] Run at 2026-04-15 12:26:55
+2026-04-15 12:26:55,428 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:26:55,428 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 12:26:58,787 [INFO]   OGDC   Rs. 307.00
+2026-04-15 12:27:02,265 [INFO]   PPL    Rs. 224.80
+2026-04-15 12:27:05,838 [INFO]   PSO    Rs. 372.30
+2026-04-15 12:27:10,249 [INFO]   HBL    Rs. 308.55
+2026-04-15 12:27:14,251 [INFO]   UBL    Rs. 373.00
+2026-04-15 12:27:17,411 [INFO]   MCB    Rs. 412.60
+2026-04-15 12:27:21,535 [INFO]   BAFL   Rs. 123.50
+2026-04-15 12:27:25,814 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 12:27:27,965 [INFO]   FFC    Rs. 541.00
+2026-04-15 12:27:30,824 [INFO]   LUCK   Rs. 447.65
+2026-04-15 12:27:33,184 [INFO]   DGKC   Rs. 200.30
+2026-04-15 12:27:35,533 [INFO]   NML    Rs. 159.19
+2026-04-15 12:27:38,102 [INFO]   SYS    Rs. 154.15
+2026-04-15 12:27:40,644 [INFO]   HUBC   Rs. 220.84
+2026-04-15 12:27:43,112 [INFO]   SEARL  Rs. 96.49
+2026-04-15 12:27:43,112 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 12:27:44,342 [ERROR] Push failed: {'code': 3, 'message': 'insufficient funds for gas * price + value'}
+2026-04-15 12:27:45,365 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 12:27:45,365 [INFO] Done. Next run in 5 min.
+
+2026-04-15 12:29:14,881 [INFO] Oracle feeder stopped.
+2026-04-15 12:29:25,228 [INFO] PSX Oracle Feeder starting...
+2026-04-15 12:29:26,751 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 0.0000 ETH
+2026-04-15 12:29:26,752 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:29:26,752 [INFO] Run at 2026-04-15 12:29:26
+2026-04-15 12:29:26,752 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:29:26,752 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 12:29:29,101 [INFO]   OGDC   Rs. 307.00
+2026-04-15 12:29:31,861 [INFO]   PPL    Rs. 224.80
+2026-04-15 12:29:34,837 [INFO]   PSO    Rs. 372.30
+2026-04-15 12:29:37,704 [INFO]   HBL    Rs. 308.55
+2026-04-15 12:29:40,170 [INFO]   UBL    Rs. 373.00
+2026-04-15 12:29:42,018 [INFO]   MCB    Rs. 412.60
+2026-04-15 12:29:44,563 [INFO]   BAFL   Rs. 123.50
+2026-04-15 12:29:48,045 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 12:29:50,305 [INFO]   FFC    Rs. 541.00
+2026-04-15 12:29:52,137 [INFO]   LUCK   Rs. 447.65
+2026-04-15 12:29:54,294 [INFO]   DGKC   Rs. 200.30
+2026-04-15 12:29:57,161 [INFO]   NML    Rs. 159.19
+2026-04-15 12:29:59,821 [INFO]   SYS    Rs. 154.40
+2026-04-15 12:30:02,484 [INFO]   HUBC   Rs. 220.57
+2026-04-15 12:30:05,550 [INFO]   SEARL  Rs. 96.44
+2026-04-15 12:30:05,551 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 12:30:06,166 [INFO]   Debug: balance=0.0000 ETH, gasPrice=1918309246, nonce=35448
+2026-04-15 12:30:06,998 [ERROR] Push failed: {'code': 3, 'message': 'insufficient funds for gas * price + value'}
+2026-04-15 12:30:07,722 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 12:30:07,722 [INFO] Done. Next run in 5 min.
+
+2026-04-15 12:30:07,723 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 12:32:00,444 [INFO] Oracle feeder stopped.
+2026-04-15 12:32:02,431 [INFO] PSX Oracle Feeder starting...
+2026-04-15 12:32:04,131 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 0.0000 ETH
+2026-04-15 12:32:04,131 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:32:04,131 [INFO] Run at 2026-04-15 12:32:04
+2026-04-15 12:32:04,132 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:32:04,132 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 12:32:06,488 [INFO]   OGDC   Rs. 307.48
+2026-04-15 12:32:08,332 [INFO]   PPL    Rs. 225.01
+2026-04-15 12:32:10,687 [INFO]   PSO    Rs. 372.49
+2026-04-15 12:32:12,220 [INFO]   HBL    Rs. 307.51
+2026-04-15 12:32:14,477 [INFO]   UBL    Rs. 373.43
+2026-04-15 12:32:16,730 [INFO]   MCB    Rs. 412.70
+2026-04-15 12:32:18,468 [INFO]   BAFL   Rs. 123.65
+2026-04-15 12:32:22,261 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 12:32:24,611 [INFO]   FFC    Rs. 540.00
+2026-04-15 12:32:26,870 [INFO]   LUCK   Rs. 447.92
+2026-04-15 12:32:28,606 [INFO]   DGKC   Rs. 200.83
+2026-04-15 12:32:30,448 [INFO]   NML    Rs. 159.05
+2026-04-15 12:32:32,088 [INFO]   SYS    Rs. 154.40
+2026-04-15 12:32:34,762 [INFO]   HUBC   Rs. 220.57
+2026-04-15 12:32:37,750 [INFO]   SEARL  Rs. 96.44
+2026-04-15 12:32:37,751 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 12:32:38,755 [INFO]   Debug: balance=0.0000 ETH, gasPrice=2006227358, nonce=35448
+2026-04-15 12:32:39,667 [ERROR] Push failed: {'code': 3, 'message': 'insufficient funds for gas * price + value'}
+2026-04-15 12:32:40,461 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 12:32:40,461 [INFO] Done. Next run in 5 min.
+
+2026-04-15 12:32:40,461 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 12:33:04,144 [INFO] PSX Oracle Feeder starting...
+2026-04-15 12:33:04,166 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 10005.0000 ETH
+2026-04-15 12:33:04,166 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:33:04,166 [INFO] Run at 2026-04-15 12:33:04
+2026-04-15 12:33:04,166 [INFO] ──────────────────────────────────────────────────
+2026-04-15 12:33:04,166 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 12:33:06,393 [INFO]   OGDC   Rs. 307.48
+2026-04-15 12:33:08,439 [INFO]   PPL    Rs. 225.01
+2026-04-15 12:33:10,694 [INFO]   PSO    Rs. 372.49
+2026-04-15 12:33:13,158 [INFO]   HBL    Rs. 307.51
+2026-04-15 12:33:15,626 [INFO]   UBL    Rs. 373.43
+2026-04-15 12:33:20,342 [INFO]   MCB    Rs. 405.62
+2026-04-15 12:33:23,699 [INFO]   BAFL   Rs. 123.65
+2026-04-15 12:33:25,991 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 12:33:29,453 [INFO]   FFC    Rs. 540.00
+2026-04-15 12:33:31,266 [INFO]   LUCK   Rs. 447.92
+2026-04-15 12:33:32,914 [INFO]   DGKC   Rs. 200.83
+2026-04-15 12:33:35,380 [INFO]   NML    Rs. 159.05
+2026-04-15 12:33:37,728 [INFO]   SYS    Rs. 154.40
+2026-04-15 12:33:40,503 [INFO]   HUBC   Rs. 220.57
+2026-04-15 12:33:42,656 [INFO]   SEARL  Rs. 96.44
+2026-04-15 12:33:42,657 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 12:33:42,679 [INFO]   Debug: balance=10005.0000 ETH, gasPrice=1001246115, nonce=0
+2026-04-15 12:33:42,726 [INFO]   Tx: 0xafac45ae0f184af5f1f0012ff462c5833d2b5970f5e9df3a1ad7502c42ddf64b
+2026-04-15 12:33:42,735 [INFO]   Confirmed in block 52 | gas: 46,800
+2026-04-15 12:33:42,760 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 12:33:42,761 [INFO] Done. Next run in 5 min.
+
+2026-04-15 12:33:42,761 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 12:35:14,914 [INFO] Oracle feeder stopped.
+2026-04-15 17:51:07,316 [INFO] PSX Oracle Feeder starting...
+2026-04-15 17:51:07,378 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 10000.0000 ETH
+2026-04-15 17:51:07,379 [INFO] ──────────────────────────────────────────────────
+2026-04-15 17:51:07,379 [INFO] Run at 2026-04-15 17:51:07
+2026-04-15 17:51:07,379 [INFO] ──────────────────────────────────────────────────
+2026-04-15 17:51:07,379 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 17:51:09,684 [INFO]   OGDC   Rs. 304.12
+2026-04-15 17:51:11,328 [INFO]   PPL    Rs. 221.97
+2026-04-15 17:51:13,262 [INFO]   PSO    Rs. 365.00
+2026-04-15 17:51:15,314 [INFO]   HBL    Rs. 304.70
+2026-04-15 17:51:17,671 [INFO]   UBL    Rs. 370.73
+2026-04-15 17:51:20,024 [INFO]   MCB    Rs. 409.41
+2026-04-15 17:51:22,070 [INFO]   BAFL   Rs. 123.99
+2026-04-15 17:51:24,226 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 17:51:26,146 [INFO]   FFC    Rs. 536.66
+2026-04-15 17:51:28,400 [INFO]   LUCK   Rs. 435.77
+2026-04-15 17:51:30,168 [INFO]   DGKC   Rs. 196.33
+2026-04-15 17:51:32,216 [INFO]   NML    Rs. 153.47
+2026-04-15 17:51:34,565 [INFO]   SYS    Rs. 153.59
+2026-04-15 17:51:37,640 [INFO]   HUBC   Rs. 221.29
+2026-04-15 17:51:39,994 [INFO]   SEARL  Rs. 94.59
+2026-04-15 17:51:39,994 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 17:51:40,011 [INFO]   Debug: balance=10000.0000 ETH, gasPrice=1875000000, nonce=0
+2026-04-15 17:51:40,045 [INFO]   Tx: 0xf7b18d0164e3cf17e6bd635b5da43f8cdfd5c2eee362816a0e805f95f8300804
+2026-04-15 17:51:40,052 [INFO]   Confirmed in block 1 | gas: 46,920
+2026-04-15 17:51:40,070 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 17:51:40,070 [INFO] Done. Next run in 5 min.
+
+2026-04-15 17:51:40,071 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 17:53:24,060 [INFO] Oracle feeder stopped.
+2026-04-15 17:53:25,806 [INFO] PSX Oracle Feeder starting...
+2026-04-15 17:53:25,823 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 10000.0000 ETH
+2026-04-15 17:53:25,823 [INFO] ──────────────────────────────────────────────────
+2026-04-15 17:53:25,823 [INFO] Run at 2026-04-15 17:53:25
+2026-04-15 17:53:25,823 [INFO] ──────────────────────────────────────────────────
+2026-04-15 17:53:25,824 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 17:53:27,808 [INFO]   OGDC   Rs. 304.12
+2026-04-15 17:53:29,961 [INFO]   PPL    Rs. 221.97
+2026-04-15 17:53:31,908 [INFO]   PSO    Rs. 365.00
+2026-04-15 17:53:34,361 [INFO]   HBL    Rs. 304.70
+2026-04-15 17:53:36,307 [INFO]   UBL    Rs. 370.73
+2026-04-15 17:53:37,947 [INFO]   MCB    Rs. 409.41
+2026-04-15 17:53:39,494 [INFO]   BAFL   Rs. 123.99
+2026-04-15 17:53:41,616 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 17:53:43,280 [INFO]   FFC    Rs. 536.66
+2026-04-15 17:53:44,984 [INFO]   LUCK   Rs. 435.77
+2026-04-15 17:53:46,526 [INFO]   DGKC   Rs. 196.33
+2026-04-15 17:53:47,989 [INFO]   NML    Rs. 153.47
+2026-04-15 17:53:50,746 [INFO]   SYS    Rs. 153.59
+2026-04-15 17:53:53,104 [INFO]   HUBC   Rs. 221.29
+2026-04-15 17:53:55,117 [INFO]   SEARL  Rs. 94.59
+2026-04-15 17:53:55,118 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 17:53:55,136 [INFO]   Debug: balance=10000.0000 ETH, gasPrice=1765796063, nonce=1
+2026-04-15 17:53:55,192 [INFO]   Tx: 0xa217a0a124d296c294081f0f217f8ff22350a3ff2eadd85ed1dc87e134d786f5
+2026-04-15 17:53:55,203 [INFO]   Confirmed in block 2 | gas: 46,920
+2026-04-15 17:53:55,238 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 17:53:55,238 [INFO] Done. Next run in 5 min.
+
+2026-04-15 17:53:55,239 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 17:58:55,313 [INFO] ──────────────────────────────────────────────────
+2026-04-15 17:58:55,315 [INFO] Run at 2026-04-15 17:58:55
+2026-04-15 17:58:55,315 [INFO] ──────────────────────────────────────────────────
+2026-04-15 17:58:55,316 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 17:58:58,678 [INFO]   OGDC   Rs. 304.12
+2026-04-15 17:59:00,940 [INFO]   PPL    Rs. 221.97
+2026-04-15 17:59:02,741 [INFO]   PSO    Rs. 365.00
+2026-04-15 17:59:04,285 [INFO]   HBL    Rs. 304.70
+2026-04-15 17:59:06,877 [INFO]   UBL    Rs. 370.73
+2026-04-15 17:59:08,994 [INFO]   MCB    Rs. 409.41
+2026-04-15 17:59:11,232 [INFO]   BAFL   Rs. 123.99
+2026-04-15 17:59:12,893 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 17:59:14,964 [INFO]   FFC    Rs. 536.66
+2026-04-15 17:59:17,110 [INFO]   LUCK   Rs. 435.77
+2026-04-15 17:59:19,223 [INFO]   DGKC   Rs. 196.33
+2026-04-15 17:59:22,069 [INFO]   NML    Rs. 153.47
+2026-04-15 17:59:23,265 [INFO]   SYS    Rs. 153.59
+2026-04-15 17:59:24,803 [INFO]   HUBC   Rs. 221.29
+2026-04-15 17:59:26,335 [INFO]   SEARL  Rs. 94.59
+2026-04-15 17:59:26,335 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 17:59:26,378 [INFO]   Debug: balance=9999.9999 ETH, gasPrice=1001090730, nonce=2
+2026-04-15 17:59:26,419 [INFO]   Tx: 0x71aea2dc0cb6fb43a3087f5585862bb7c63344fe722324194b36dc5c6253288e
+2026-04-15 17:59:26,424 [INFO]   Confirmed in block 53 | gas: 46,920
+2026-04-15 17:59:26,441 [WARNING]   Read-back failed for OGDC: Could not transact with/call contract function, is contract deployed correctly and chain synced?
+2026-04-15 17:59:26,442 [INFO] Done. Next run in 5 min.
+
+2026-04-15 18:04:26,510 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:04:26,511 [INFO] Run at 2026-04-15 18:04:26
+2026-04-15 18:04:26,511 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:04:26,511 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:04:28,934 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:04:31,283 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:04:33,484 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:04:34,867 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:04:37,358 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:04:38,859 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:04:41,413 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:04:43,422 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:04:43,540 [INFO] Oracle feeder stopped.
+2026-04-15 18:04:45,880 [INFO] PSX Oracle Feeder starting...
+2026-04-15 18:04:45,924 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 9999.9999 ETH
+2026-04-15 18:04:45,924 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:04:45,924 [INFO] Run at 2026-04-15 18:04:45
+2026-04-15 18:04:45,924 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:04:45,924 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:04:47,207 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:04:49,095 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:04:51,144 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:04:53,190 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:04:55,700 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:04:57,795 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:04:58,930 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:05:00,257 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:05:02,615 [INFO]   FFC    Rs. 536.66
+2026-04-15 18:05:05,687 [INFO]   LUCK   Rs. 435.77
+2026-04-15 18:05:08,044 [INFO]   DGKC   Rs. 196.33
+2026-04-15 18:05:09,879 [INFO]   NML    Rs. 153.47
+2026-04-15 18:05:11,830 [INFO]   SYS    Rs. 153.59
+2026-04-15 18:05:14,085 [INFO]   HUBC   Rs. 221.29
+2026-04-15 18:05:16,212 [INFO]   SEARL  Rs. 94.59
+2026-04-15 18:05:16,212 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 18:05:16,226 [INFO]   Debug: balance=9999.9999 ETH, gasPrice=1000001557, nonce=3
+2026-04-15 18:05:16,331 [ERROR] Push failed: {'code': -32000, 'message': 'Transaction ran out of gas', 'data': {'message': 'Transaction ran out of gas', 'txHash': '0x95f891325b0020595cb1f569631243bfc18e484ed0ff5072b8e0e95dff90aa16', 'data': '0x'}}
+2026-04-15 18:05:16,354 [INFO]   On-chain OGDC: Rs. 0.00 | Round #0 | at 05:00:00
+2026-04-15 18:05:16,354 [INFO] Done. Next run in 5 min.
+
+2026-04-15 18:05:16,355 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 18:09:06,307 [INFO] Oracle feeder stopped.
+2026-04-15 18:09:08,373 [INFO] PSX Oracle Feeder starting...
+2026-04-15 18:09:08,397 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 9999.9994 ETH
+2026-04-15 18:09:08,397 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:09:08,397 [INFO] Run at 2026-04-15 18:09:08
+2026-04-15 18:09:08,397 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:09:08,398 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:09:20,752 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:09:23,112 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:09:24,643 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:09:26,485 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:09:28,467 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:09:30,118 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:09:33,286 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:09:34,965 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:09:36,755 [INFO]   FFC    Rs. 536.66
+2026-04-15 18:09:39,605 [INFO]   LUCK   Rs. 435.77
+2026-04-15 18:09:41,680 [INFO]   DGKC   Rs. 196.33
+2026-04-15 18:09:43,699 [INFO]   NML    Rs. 153.47
+2026-04-15 18:09:45,544 [INFO]   SYS    Rs. 153.59
+2026-04-15 18:09:48,171 [INFO]   HUBC   Rs. 221.29
+2026-04-15 18:09:59,192 [INFO]   SEARL  Rs. 94.59
+2026-04-15 18:09:59,192 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 18:09:59,208 [INFO]   Debug: balance=9999.9994 ETH, gasPrice=1000001366, nonce=4
+2026-04-15 18:09:59,271 [ERROR] Push failed: {'code': -32000, 'message': 'Transaction ran out of gas', 'data': {'message': 'Transaction ran out of gas', 'txHash': '0x565bcf7922b281415020eb340e3fd0fe573e6b28400396f4d070d489cdf8c6e6', 'data': '0x'}}
+2026-04-15 18:09:59,288 [INFO]   On-chain OGDC: Rs. 0.00 | Round #0 | at 05:00:00
+2026-04-15 18:09:59,288 [INFO] Done. Next run in 5 min.
+
+2026-04-15 18:09:59,288 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 18:12:40,415 [INFO] Oracle feeder stopped.
+2026-04-15 18:12:42,205 [INFO] PSX Oracle Feeder starting...
+2026-04-15 18:12:42,219 [INFO] Connected | Feeder: 0x70997970C51812dc3A010C7d01b50e0d17dc79C8 | Balance: 9999.9989 ETH
+2026-04-15 18:12:42,219 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:12:42,219 [INFO] Run at 2026-04-15 18:12:42
+2026-04-15 18:12:42,219 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:12:42,219 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:12:45,062 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:12:47,102 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:12:48,777 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:12:50,302 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:12:52,637 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:12:54,677 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:12:56,729 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:12:59,388 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:13:01,752 [INFO]   FFC    Rs. 536.66
+2026-04-15 18:13:04,001 [INFO]   LUCK   Rs. 435.77
+2026-04-15 18:13:06,561 [INFO]   DGKC   Rs. 196.33
+2026-04-15 18:13:09,018 [INFO]   NML    Rs. 153.47
+2026-04-15 18:13:10,656 [INFO]   SYS    Rs. 153.59
+2026-04-15 18:13:13,213 [INFO]   HUBC   Rs. 221.29
+2026-04-15 18:13:15,571 [INFO]   SEARL  Rs. 94.59
+2026-04-15 18:13:15,571 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 18:13:15,585 [INFO]   Debug: balance=9999.9989 ETH, gasPrice=1000001199, nonce=5
+2026-04-15 18:13:15,630 [INFO]   Tx: 0x99d1a37be178ae9b97bd4ffd042dd6c0a1be665d758c5c800512dda1d9a0c883
+2026-04-15 18:13:15,645 [INFO]   Confirmed in block 106 | gas: 1,506,019
+2026-04-15 18:13:15,662 [INFO]   On-chain OGDC: Rs. 304.12 | Round #1 | at 18:14:49
+2026-04-15 18:13:15,663 [INFO] Done. Next run in 5 min.
+
+2026-04-15 18:13:15,663 [INFO] Scheduled every 5 min. Ctrl+C to stop.
+
+2026-04-15 18:18:15,746 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:18:15,746 [INFO] Run at 2026-04-15 18:18:15
+2026-04-15 18:18:15,746 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:18:15,747 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:18:17,606 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:18:20,004 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:18:22,462 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:18:24,653 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:18:26,881 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:18:28,816 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:18:29,982 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:18:31,371 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:18:34,963 [INFO]   FFC    Rs. 536.66
+2026-04-15 18:18:36,902 [INFO]   LUCK   Rs. 435.77
+2026-04-15 18:18:38,743 [INFO]   DGKC   Rs. 196.33
+2026-04-15 18:18:40,236 [INFO]   NML    Rs. 153.47
+2026-04-15 18:18:42,112 [INFO]   SYS    Rs. 153.59
+2026-04-15 18:18:43,826 [INFO]   HUBC   Rs. 221.29
+2026-04-15 18:18:45,399 [INFO]   SEARL  Rs. 94.59
+2026-04-15 18:18:45,399 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 18:18:45,413 [INFO]   Debug: balance=9999.9974 ETH, gasPrice=1000001057, nonce=6
+2026-04-15 18:18:45,476 [INFO]   Tx: 0x05ca919ce59857ca22ee19d4ec4b02d7dc0a87bb0d85074e30327dc4fc245cc1
+2026-04-15 18:18:45,494 [INFO]   Confirmed in block 107 | gas: 694,519
+2026-04-15 18:18:45,513 [INFO]   On-chain OGDC: Rs. 304.12 | Round #2 | at 18:20:19
+2026-04-15 18:18:45,513 [INFO] Done. Next run in 5 min.
+
+2026-04-15 18:23:45,592 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:23:45,593 [INFO] Run at 2026-04-15 18:23:45
+2026-04-15 18:23:45,593 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:23:45,593 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:23:47,173 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:23:49,301 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:23:51,553 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:23:53,210 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:23:55,166 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:23:56,739 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:23:58,103 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:24:00,251 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:24:02,402 [INFO]   FFC    Rs. 536.66
+2026-04-15 18:24:04,640 [INFO]   LUCK   Rs. 435.77
+2026-04-15 18:24:06,427 [INFO]   DGKC   Rs. 196.33
+2026-04-15 18:24:08,167 [INFO]   NML    Rs. 153.47
+2026-04-15 18:24:10,310 [INFO]   SYS    Rs. 153.59
+2026-04-15 18:24:12,144 [INFO]   HUBC   Rs. 221.29
+2026-04-15 18:24:14,426 [INFO]   SEARL  Rs. 94.59
+2026-04-15 18:24:14,426 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 18:24:14,445 [INFO]   Debug: balance=9999.9967 ETH, gasPrice=1000000928, nonce=7
+2026-04-15 18:24:14,493 [INFO]   Tx: 0xee8824b82905e36d5848c809eb0d882891cb91fdffc5d65d39104194a8cb7fe3
+2026-04-15 18:24:14,503 [INFO]   Confirmed in block 108 | gas: 694,519
+2026-04-15 18:24:14,513 [INFO]   On-chain OGDC: Rs. 304.12 | Round #3 | at 18:25:48
+2026-04-15 18:24:14,514 [INFO] Done. Next run in 5 min.
+
+2026-04-15 18:29:14,589 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:29:14,589 [INFO] Run at 2026-04-15 18:29:14
+2026-04-15 18:29:14,589 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:29:14,589 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:29:17,344 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:29:19,682 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:29:21,285 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:29:22,644 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:29:24,497 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:29:27,027 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:29:28,307 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:29:30,046 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:29:32,172 [INFO]   FFC    Rs. 536.66
+2026-04-15 18:29:33,807 [INFO]   LUCK   Rs. 435.77
+2026-04-15 18:29:36,059 [INFO]   DGKC   Rs. 196.33
+2026-04-15 18:29:38,233 [INFO]   NML    Rs. 153.47
+2026-04-15 18:29:39,994 [INFO]   SYS    Rs. 153.59
+2026-04-15 18:29:42,945 [INFO]   HUBC   Rs. 221.29
+2026-04-15 18:29:44,989 [INFO]   SEARL  Rs. 94.59
+2026-04-15 18:29:44,990 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 18:29:45,011 [INFO]   Debug: balance=9999.9960 ETH, gasPrice=1000000815, nonce=8
+2026-04-15 18:29:45,077 [INFO]   Tx: 0xaacd64fd4613b3a1052e9b3675d36ee673f49865d3782e9fd8a2ffc2c70fe0c1
+2026-04-15 18:29:45,102 [INFO]   Confirmed in block 109 | gas: 694,519
+2026-04-15 18:29:45,123 [INFO]   On-chain OGDC: Rs. 304.12 | Round #4 | at 18:31:19
+2026-04-15 18:29:45,123 [INFO] Done. Next run in 5 min.
+
+2026-04-15 18:34:45,199 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:34:45,199 [INFO] Run at 2026-04-15 18:34:45
+2026-04-15 18:34:45,199 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:34:45,199 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:34:47,571 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:34:49,210 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:34:51,307 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:34:53,043 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:34:55,493 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:34:56,881 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:34:58,071 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:35:00,971 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:35:03,278 [INFO]   FFC    Rs. 536.66
+2026-04-15 18:35:04,812 [INFO]   LUCK   Rs. 435.77
+2026-04-15 18:35:07,097 [INFO]   DGKC   Rs. 196.33
+2026-04-15 18:35:08,304 [INFO]   NML    Rs. 153.47
+2026-04-15 18:35:10,115 [INFO]   SYS    Rs. 153.59
+2026-04-15 18:35:11,627 [INFO]   HUBC   Rs. 221.29
+2026-04-15 18:35:13,414 [INFO]   SEARL  Rs. 94.59
+2026-04-15 18:35:13,414 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 18:35:13,428 [INFO]   Debug: balance=9999.9953 ETH, gasPrice=1000000627, nonce=9
+2026-04-15 18:35:13,484 [INFO]   Tx: 0x35f5d8044fcede02e65ae745fab5e423624c7948244093252663458ac41d7023
+2026-04-15 18:35:13,498 [INFO]   Confirmed in block 111 | gas: 694,519
+2026-04-15 18:35:13,511 [INFO]   On-chain OGDC: Rs. 304.12 | Round #5 | at 18:36:47
+2026-04-15 18:35:13,511 [INFO] Done. Next run in 5 min.
+
+2026-04-15 18:40:13,589 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:40:13,590 [INFO] Run at 2026-04-15 18:40:13
+2026-04-15 18:40:13,590 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:40:13,590 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:40:15,325 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:40:16,839 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:40:18,507 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:40:20,562 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:40:23,032 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:40:24,902 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:40:26,260 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:40:27,925 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:40:30,191 [INFO]   FFC    Rs. 536.66
+2026-04-15 18:40:32,547 [INFO]   LUCK   Rs. 435.77
+2026-04-15 18:40:35,330 [INFO]   DGKC   Rs. 196.33
+2026-04-15 18:40:36,856 [INFO]   NML    Rs. 153.47
+2026-04-15 18:40:38,374 [INFO]   SYS    Rs. 153.59
+2026-04-15 18:40:40,601 [INFO]   HUBC   Rs. 221.29
+2026-04-15 18:40:42,176 [INFO]   SEARL  Rs. 94.59
+2026-04-15 18:40:42,176 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 18:40:42,190 [INFO]   Debug: balance=9999.9946 ETH, gasPrice=1000000371, nonce=10
+2026-04-15 18:40:42,225 [INFO]   Tx: 0x228e9968e5fa5fe201e71389c1583932a9753a5209bfa44b1f9d5657784888ac
+2026-04-15 18:40:42,234 [INFO]   Confirmed in block 115 | gas: 694,519
+2026-04-15 18:40:42,244 [INFO]   On-chain OGDC: Rs. 304.12 | Round #6 | at 18:42:17
+2026-04-15 18:40:42,244 [INFO] Done. Next run in 5 min.
+
+2026-04-15 18:45:42,324 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:45:42,325 [INFO] Run at 2026-04-15 18:45:42
+2026-04-15 18:45:42,325 [INFO] ──────────────────────────────────────────────────
+2026-04-15 18:45:42,325 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 18:45:43,888 [INFO]   OGDC   Rs. 304.12
+2026-04-15 18:45:45,341 [INFO]   PPL    Rs. 221.97
+2026-04-15 18:45:47,307 [INFO]   PSO    Rs. 365.00
+2026-04-15 18:45:49,068 [INFO]   HBL    Rs. 304.70
+2026-04-15 18:45:51,611 [INFO]   UBL    Rs. 370.73
+2026-04-15 18:45:53,645 [INFO]   MCB    Rs. 409.41
+2026-04-15 18:45:56,217 [INFO]   BAFL   Rs. 123.99
+2026-04-15 18:45:58,181 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 18:46:00,302 [INFO]   FFC    Rs. 536.66
+2026-04-15 18:46:03,077 [INFO]   LUCK   Rs. 435.77
+2026-04-15 18:46:13,094 [WARNING]   DGKC   Rs. 196.33  (cached — PSX API unavailable)
+2026-04-15 18:46:13,099 [WARNING]   NML    Rs. 153.47  (cached — PSX API unavailable)
+2026-04-15 18:46:13,104 [WARNING]   SYS    Rs. 153.59  (cached — PSX API unavailable)
+2026-04-15 18:46:13,109 [WARNING]   HUBC   Rs. 221.29  (cached — PSX API unavailable)
+2026-04-15 18:46:13,114 [WARNING]   SEARL  Rs. 94.59  (cached — PSX API unavailable)
+2026-04-15 18:46:13,114 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 18:46:13,147 [INFO]   Debug: balance=9999.9939 ETH, gasPrice=1000000286, nonce=11
+2026-04-15 18:46:13,235 [INFO]   Tx: 0xf6c5073c33cb7951194033e32e3469f048a8943e6c58c1ff5a5fa38ce2255028
+2026-04-15 18:46:13,267 [INFO]   Confirmed in block 117 | gas: 694,519
+2026-04-15 18:46:13,297 [INFO]   On-chain OGDC: Rs. 304.12 | Round #7 | at 18:47:48
+2026-04-15 18:46:13,297 [INFO] Done. Next run in 5 min.
+
+2026-04-15 19:08:26,250 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:08:26,251 [INFO] Run at 2026-04-15 19:08:26
+2026-04-15 19:08:26,251 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:08:26,252 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 19:08:26,312 [WARNING]   OGDC   Rs. 304.12  (cached — PSX API unavailable)
+2026-04-15 19:08:26,323 [WARNING]   PPL    Rs. 221.97  (cached — PSX API unavailable)
+2026-04-15 19:08:26,332 [WARNING]   PSO    Rs. 365.00  (cached — PSX API unavailable)
+2026-04-15 19:08:26,370 [WARNING]   HBL    Rs. 304.70  (cached — PSX API unavailable)
+2026-04-15 19:08:26,378 [WARNING]   UBL    Rs. 370.73  (cached — PSX API unavailable)
+2026-04-15 19:08:26,385 [WARNING]   MCB    Rs. 409.41  (cached — PSX API unavailable)
+2026-04-15 19:08:26,392 [WARNING]   BAFL   Rs. 123.99  (cached — PSX API unavailable)
+2026-04-15 19:08:26,399 [WARNING]   ENGRO  Rs. 485.38  (cached — PSX API unavailable)
+2026-04-15 19:08:26,406 [WARNING]   FFC    Rs. 536.66  (cached — PSX API unavailable)
+2026-04-15 19:08:26,420 [WARNING]   LUCK   Rs. 435.77  (cached — PSX API unavailable)
+2026-04-15 19:08:26,429 [WARNING]   DGKC   Rs. 196.33  (cached — PSX API unavailable)
+2026-04-15 19:08:26,436 [WARNING]   NML    Rs. 153.47  (cached — PSX API unavailable)
+2026-04-15 19:08:26,442 [WARNING]   SYS    Rs. 153.59  (cached — PSX API unavailable)
+2026-04-15 19:08:26,448 [WARNING]   HUBC   Rs. 221.29  (cached — PSX API unavailable)
+2026-04-15 19:08:26,454 [WARNING]   SEARL  Rs. 94.59  (cached — PSX API unavailable)
+2026-04-15 19:08:26,455 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 19:08:26,471 [INFO]   Debug: balance=9999.9932 ETH, gasPrice=1000000252, nonce=12
+2026-04-15 19:08:26,501 [INFO]   Tx: 0xfd2e71b77abb2d29695c857a76e612a552a677e03c4b2ac10d4405ff947280de
+2026-04-15 19:08:26,516 [INFO]   Confirmed in block 118 | gas: 694,519
+2026-04-15 19:08:26,532 [INFO]   On-chain OGDC: Rs. 304.12 | Round #8 | at 19:10:01
+2026-04-15 19:08:26,533 [INFO] Done. Next run in 5 min.
+
+2026-04-15 19:13:26,614 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:13:26,614 [INFO] Run at 2026-04-15 19:13:26
+2026-04-15 19:13:26,615 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:13:26,615 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 19:13:29,876 [INFO]   OGDC   Rs. 304.12
+2026-04-15 19:13:32,538 [INFO]   PPL    Rs. 221.97
+2026-04-15 19:13:35,193 [INFO]   PSO    Rs. 365.00
+2026-04-15 19:13:37,854 [INFO]   HBL    Rs. 304.70
+2026-04-15 19:13:40,525 [INFO]   UBL    Rs. 370.73
+2026-04-15 19:13:43,138 [INFO]   MCB    Rs. 409.41
+2026-04-15 19:13:44,818 [INFO]   BAFL   Rs. 123.99
+2026-04-15 19:13:47,182 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 19:13:49,757 [INFO]   FFC    Rs. 536.66
+2026-04-15 19:13:52,098 [INFO]   LUCK   Rs. 435.77
+2026-04-15 19:13:58,839 [INFO]   DGKC   Rs. 196.33
+2026-04-15 19:14:00,961 [INFO]   NML    Rs. 153.47
+2026-04-15 19:14:05,723 [INFO]   SYS    Rs. 153.59
+2026-04-15 19:14:26,358 [WARNING]   HUBC   Rs. 221.29  (cached — PSX API unavailable)
+2026-04-15 19:14:30,626 [INFO]   SEARL  Rs. 94.59
+2026-04-15 19:14:30,626 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 19:14:30,640 [INFO]   Debug: balance=9999.9925 ETH, gasPrice=1000000222, nonce=13
+2026-04-15 19:14:30,675 [INFO]   Tx: 0x5d64aa9d21d30ebcfc3b8aa28ed52f185948d3aa9390affea5cf6e311f1ef989
+2026-04-15 19:14:30,687 [INFO]   Confirmed in block 119 | gas: 694,519
+2026-04-15 19:14:30,697 [INFO]   On-chain OGDC: Rs. 304.12 | Round #9 | at 19:16:05
+2026-04-15 19:14:30,697 [INFO] Done. Next run in 5 min.
+
+2026-04-15 19:19:30,819 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:19:30,831 [INFO] Run at 2026-04-15 19:19:30
+2026-04-15 19:19:30,831 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:19:30,832 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 19:19:33,200 [INFO]   OGDC   Rs. 304.12
+2026-04-15 19:19:35,655 [INFO]   PPL    Rs. 221.97
+2026-04-15 19:19:37,815 [INFO]   PSO    Rs. 365.00
+2026-04-15 19:19:40,563 [INFO]   HBL    Rs. 304.70
+2026-04-15 19:20:02,207 [INFO]   UBL    Rs. 370.73
+2026-04-15 19:20:03,929 [INFO]   MCB    Rs. 409.41
+2026-04-15 19:20:05,644 [INFO]   BAFL   Rs. 123.99
+2026-04-15 19:20:08,114 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 19:20:09,956 [INFO]   FFC    Rs. 536.66
+2026-04-15 19:20:12,105 [INFO]   LUCK   Rs. 435.77
+2026-04-15 19:20:14,560 [INFO]   DGKC   Rs. 196.33
+2026-04-15 19:20:16,606 [INFO]   NML    Rs. 153.47
+2026-04-15 19:20:19,473 [INFO]   SYS    Rs. 153.59
+2026-04-15 19:20:22,449 [INFO]   HUBC   Rs. 221.29
+2026-04-15 19:20:24,330 [INFO]   SEARL  Rs. 94.59
+2026-04-15 19:20:24,331 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 19:20:24,374 [INFO]   Debug: balance=9999.9918 ETH, gasPrice=1000000195, nonce=14
+2026-04-15 19:20:24,440 [INFO]   Tx: 0xc525fc07f402cb155707b11b16df32b5a88937c557580342ef9213b3bacbda86
+2026-04-15 19:20:24,464 [INFO]   Confirmed in block 120 | gas: 694,519
+2026-04-15 19:20:24,490 [INFO]   On-chain OGDC: Rs. 304.12 | Round #10 | at 19:21:59
+2026-04-15 19:20:24,491 [INFO] Done. Next run in 5 min.
+
+2026-04-15 19:25:24,562 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:25:24,562 [INFO] Run at 2026-04-15 19:25:24
+2026-04-15 19:25:24,562 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:25:24,562 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 19:25:27,598 [INFO]   OGDC   Rs. 304.12
+2026-04-15 19:25:29,746 [INFO]   PPL    Rs. 221.97
+2026-04-15 19:25:32,617 [INFO]   PSO    Rs. 365.00
+2026-04-15 19:25:34,557 [INFO]   HBL    Rs. 304.70
+2026-04-15 19:25:37,534 [INFO]   UBL    Rs. 370.73
+2026-04-15 19:25:39,983 [INFO]   MCB    Rs. 409.41
+2026-04-15 19:25:42,234 [INFO]   BAFL   Rs. 123.99
+2026-04-15 19:25:45,010 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 19:25:47,367 [INFO]   FFC    Rs. 536.66
+2026-04-15 19:25:50,236 [INFO]   LUCK   Rs. 435.77
+2026-04-15 19:25:52,402 [INFO]   DGKC   Rs. 196.33
+2026-04-15 19:25:55,037 [INFO]   NML    Rs. 153.47
+2026-04-15 19:25:57,303 [INFO]   SYS    Rs. 153.59
+2026-04-15 19:25:59,248 [INFO]   HUBC   Rs. 221.29
+2026-04-15 19:26:01,591 [INFO]   SEARL  Rs. 94.59
+2026-04-15 19:26:01,591 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 19:26:01,605 [INFO]   Debug: balance=9999.9911 ETH, gasPrice=1000000172, nonce=15
+2026-04-15 19:26:01,637 [INFO]   Tx: 0x217b0e500e9912adf49f128cdc3ae9cefe8d66beb11af679d1c9909081c09de1
+2026-04-15 19:26:01,648 [INFO]   Confirmed in block 121 | gas: 694,519
+2026-04-15 19:26:01,658 [INFO]   On-chain OGDC: Rs. 304.12 | Round #11 | at 19:27:36
+2026-04-15 19:26:01,658 [INFO] Done. Next run in 5 min.
+
+2026-04-15 19:31:01,734 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:31:01,735 [INFO] Run at 2026-04-15 19:31:01
+2026-04-15 19:31:01,735 [INFO] ──────────────────────────────────────────────────
+2026-04-15 19:31:01,735 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 19:31:03,474 [INFO]   OGDC   Rs. 304.12
+2026-04-15 19:31:05,628 [INFO]   PPL    Rs. 221.97
+2026-04-15 19:31:06,928 [INFO]   PSO    Rs. 365.00
+2026-04-15 19:31:08,792 [INFO]   HBL    Rs. 304.70
+2026-04-15 19:31:10,489 [INFO]   UBL    Rs. 370.73
+2026-04-15 19:31:11,959 [INFO]   MCB    Rs. 409.41
+2026-04-15 19:31:13,788 [INFO]   BAFL   Rs. 123.99
+2026-04-15 19:31:15,169 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 19:31:16,862 [INFO]   FFC    Rs. 536.66
+2026-04-15 19:31:18,506 [INFO]   LUCK   Rs. 435.77
+2026-04-15 19:31:19,984 [INFO]   DGKC   Rs. 196.33
+2026-04-15 19:31:21,172 [INFO]   NML    Rs. 153.47
+2026-04-15 19:31:22,353 [INFO]   SYS    Rs. 153.59
+2026-04-15 19:31:23,882 [INFO]   HUBC   Rs. 221.29
+2026-04-15 19:31:25,866 [INFO]   SEARL  Rs. 94.59
+2026-04-15 19:31:25,867 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 19:31:25,893 [INFO]   Debug: balance=9999.9904 ETH, gasPrice=1000000151, nonce=16
+2026-04-15 19:31:25,956 [INFO]   Tx: 0x23b2c02869be4a909ecf9cd961232ce7b7017c18eeb1e311f92a71a7c0879fd9
+2026-04-15 19:31:25,972 [INFO]   Confirmed in block 122 | gas: 694,519
+2026-04-15 19:31:25,990 [INFO]   On-chain OGDC: Rs. 304.12 | Round #12 | at 19:33:00
+2026-04-15 19:31:25,990 [INFO] Done. Next run in 5 min.
+
+2026-04-15 20:07:04,234 [INFO] ──────────────────────────────────────────────────
+2026-04-15 20:07:04,236 [INFO] Run at 2026-04-15 20:07:04
+2026-04-15 20:07:04,237 [INFO] ──────────────────────────────────────────────────
+2026-04-15 20:07:04,237 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 20:07:04,251 [WARNING]   OGDC   Rs. 304.12  (cached — PSX API unavailable)
+2026-04-15 20:07:04,263 [WARNING]   PPL    Rs. 221.97  (cached — PSX API unavailable)
+2026-04-15 20:07:04,275 [WARNING]   PSO    Rs. 365.00  (cached — PSX API unavailable)
+2026-04-15 20:07:04,288 [WARNING]   HBL    Rs. 304.70  (cached — PSX API unavailable)
+2026-04-15 20:07:04,301 [WARNING]   UBL    Rs. 370.73  (cached — PSX API unavailable)
+2026-04-15 20:07:04,313 [WARNING]   MCB    Rs. 409.41  (cached — PSX API unavailable)
+2026-04-15 20:07:04,326 [WARNING]   BAFL   Rs. 123.99  (cached — PSX API unavailable)
+2026-04-15 20:07:04,337 [WARNING]   ENGRO  Rs. 485.38  (cached — PSX API unavailable)
+2026-04-15 20:07:04,347 [WARNING]   FFC    Rs. 536.66  (cached — PSX API unavailable)
+2026-04-15 20:07:04,355 [WARNING]   LUCK   Rs. 435.77  (cached — PSX API unavailable)
+2026-04-15 20:07:04,365 [WARNING]   DGKC   Rs. 196.33  (cached — PSX API unavailable)
+2026-04-15 20:07:04,372 [WARNING]   NML    Rs. 153.47  (cached — PSX API unavailable)
+2026-04-15 20:07:04,378 [WARNING]   SYS    Rs. 153.59  (cached — PSX API unavailable)
+2026-04-15 20:07:04,387 [WARNING]   HUBC   Rs. 221.29  (cached — PSX API unavailable)
+2026-04-15 20:07:04,394 [WARNING]   SEARL  Rs. 94.59  (cached — PSX API unavailable)
+2026-04-15 20:07:04,395 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 20:07:04,414 [INFO]   Debug: balance=9999.9897 ETH, gasPrice=1000000133, nonce=17
+2026-04-15 20:07:04,461 [INFO]   Tx: 0x1c743125696febcf37dc40746b3b4da5931649496e05198a22c1873a136b2e3d
+2026-04-15 20:07:04,482 [INFO]   Confirmed in block 123 | gas: 694,519
+2026-04-15 20:07:04,499 [INFO]   On-chain OGDC: Rs. 304.12 | Round #13 | at 20:08:39
+2026-04-15 20:07:04,499 [INFO] Done. Next run in 5 min.
+
+2026-04-15 20:12:04,577 [INFO] ──────────────────────────────────────────────────
+2026-04-15 20:12:04,577 [INFO] Run at 2026-04-15 20:12:04
+2026-04-15 20:12:04,577 [INFO] ──────────────────────────────────────────────────
+2026-04-15 20:12:04,577 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 20:12:08,117 [INFO]   OGDC   Rs. 304.12
+2026-04-15 20:12:10,371 [INFO]   PPL    Rs. 221.97
+2026-04-15 20:12:18,479 [INFO]   PSO    Rs. 365.00
+2026-04-15 20:12:20,567 [INFO]   HBL    Rs. 304.70
+2026-04-15 20:12:22,037 [INFO]   UBL    Rs. 370.73
+2026-04-15 20:12:23,404 [INFO]   MCB    Rs. 409.41
+2026-04-15 20:12:24,796 [INFO]   BAFL   Rs. 123.99
+2026-04-15 20:12:26,654 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 20:12:30,106 [INFO]   FFC    Rs. 536.66
+2026-04-15 20:12:32,773 [INFO]   LUCK   Rs. 435.77
+2026-04-15 20:12:34,354 [INFO]   DGKC   Rs. 196.33
+2026-04-15 20:12:37,102 [INFO]   NML    Rs. 153.47
+2026-04-15 20:12:39,700 [INFO]   SYS    Rs. 153.59
+2026-04-15 20:12:42,130 [INFO]   HUBC   Rs. 221.29
+2026-04-15 20:12:44,482 [INFO]   SEARL  Rs. 94.59
+2026-04-15 20:12:44,483 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 20:12:44,489 [INFO]   Debug: balance=9999.9890 ETH, gasPrice=1000000117, nonce=18
+2026-04-15 20:12:44,521 [INFO]   Tx: 0xb863e66c7656ade01807d81ef6239152f066eb2914e007c1a63450aaadb353d0
+2026-04-15 20:12:44,533 [INFO]   Confirmed in block 124 | gas: 694,519
+2026-04-15 20:12:44,547 [INFO]   On-chain OGDC: Rs. 304.12 | Round #14 | at 20:14:19
+2026-04-15 20:12:44,547 [INFO] Done. Next run in 5 min.
+
+2026-04-15 20:17:44,621 [INFO] ──────────────────────────────────────────────────
+2026-04-15 20:17:44,621 [INFO] Run at 2026-04-15 20:17:44
+2026-04-15 20:17:44,621 [INFO] ──────────────────────────────────────────────────
+2026-04-15 20:17:44,621 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 20:17:46,762 [INFO]   OGDC   Rs. 304.12
+2026-04-15 20:17:49,521 [INFO]   PPL    Rs. 221.97
+2026-04-15 20:17:51,642 [INFO]   PSO    Rs. 365.00
+2026-04-15 20:17:54,127 [INFO]   HBL    Rs. 304.70
+2026-04-15 20:17:56,793 [INFO]   UBL    Rs. 370.73
+2026-04-15 20:17:58,338 [INFO]   MCB    Rs. 409.41
+2026-04-15 20:17:59,821 [INFO]   BAFL   Rs. 123.99
+2026-04-15 20:18:01,286 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 20:18:02,921 [INFO]   FFC    Rs. 536.66
+2026-04-15 20:18:04,323 [INFO]   LUCK   Rs. 435.77
+2026-04-15 20:18:05,601 [INFO]   DGKC   Rs. 196.33
+2026-04-15 20:18:07,834 [INFO]   NML    Rs. 153.47
+2026-04-15 20:18:09,213 [INFO]   SYS    Rs. 153.59
+2026-04-15 20:18:11,035 [INFO]   HUBC   Rs. 221.29
+2026-04-15 20:18:13,279 [INFO]   SEARL  Rs. 94.59
+2026-04-15 20:18:13,280 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 20:18:13,305 [INFO]   Debug: balance=9999.9883 ETH, gasPrice=1000000103, nonce=19
+2026-04-15 20:18:13,366 [INFO]   Tx: 0x0e654491406456bb261a94c08b7e7fe8e55d378377b343db91d201704f030a41
+2026-04-15 20:18:13,385 [INFO]   Confirmed in block 125 | gas: 694,519
+2026-04-15 20:18:13,403 [INFO]   On-chain OGDC: Rs. 304.12 | Round #15 | at 20:19:48
+2026-04-15 20:18:13,403 [INFO] Done. Next run in 5 min.
+
+2026-04-15 21:24:17,242 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:24:17,243 [INFO] Run at 2026-04-15 21:24:17
+2026-04-15 21:24:17,243 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:24:17,243 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 21:24:17,249 [WARNING]   OGDC   Rs. 304.12  (cached — PSX API unavailable)
+2026-04-15 21:24:17,257 [WARNING]   PPL    Rs. 221.97  (cached — PSX API unavailable)
+2026-04-15 21:24:17,271 [WARNING]   PSO    Rs. 365.00  (cached — PSX API unavailable)
+2026-04-15 21:24:17,282 [WARNING]   HBL    Rs. 304.70  (cached — PSX API unavailable)
+2026-04-15 21:24:17,293 [WARNING]   UBL    Rs. 370.73  (cached — PSX API unavailable)
+2026-04-15 21:24:17,301 [WARNING]   MCB    Rs. 409.41  (cached — PSX API unavailable)
+2026-04-15 21:24:17,309 [WARNING]   BAFL   Rs. 123.99  (cached — PSX API unavailable)
+2026-04-15 21:24:17,319 [WARNING]   ENGRO  Rs. 485.38  (cached — PSX API unavailable)
+2026-04-15 21:24:17,327 [WARNING]   FFC    Rs. 536.66  (cached — PSX API unavailable)
+2026-04-15 21:24:17,338 [WARNING]   LUCK   Rs. 435.77  (cached — PSX API unavailable)
+2026-04-15 21:24:17,349 [WARNING]   DGKC   Rs. 196.33  (cached — PSX API unavailable)
+2026-04-15 21:24:17,359 [WARNING]   NML    Rs. 153.47  (cached — PSX API unavailable)
+2026-04-15 21:24:17,370 [WARNING]   SYS    Rs. 153.59  (cached — PSX API unavailable)
+2026-04-15 21:24:17,380 [WARNING]   HUBC   Rs. 221.29  (cached — PSX API unavailable)
+2026-04-15 21:24:17,387 [WARNING]   SEARL  Rs. 94.59  (cached — PSX API unavailable)
+2026-04-15 21:24:17,388 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 21:24:17,421 [INFO]   Debug: balance=9999.9876 ETH, gasPrice=1000000091, nonce=20
+2026-04-15 21:24:17,516 [INFO]   Tx: 0x9998cbb0e8c687cafea4123aba4dba9c76ff409ad030314a75fee0724d6dd3c3
+2026-04-15 21:24:17,549 [INFO]   Confirmed in block 126 | gas: 694,519
+2026-04-15 21:24:17,576 [INFO]   On-chain OGDC: Rs. 304.12 | Round #16 | at 21:25:52
+2026-04-15 21:24:17,576 [INFO] Done. Next run in 5 min.
+
+2026-04-15 21:29:17,652 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:29:17,652 [INFO] Run at 2026-04-15 21:29:17
+2026-04-15 21:29:17,652 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:29:17,653 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 21:29:19,262 [INFO]   OGDC   Rs. 304.12
+2026-04-15 21:29:21,045 [INFO]   PPL    Rs. 221.97
+2026-04-15 21:29:22,776 [INFO]   PSO    Rs. 365.00
+2026-04-15 21:29:24,210 [INFO]   HBL    Rs. 304.70
+2026-04-15 21:29:26,331 [INFO]   UBL    Rs. 370.73
+2026-04-15 21:29:27,533 [INFO]   MCB    Rs. 409.41
+2026-04-15 21:29:28,983 [INFO]   BAFL   Rs. 123.99
+2026-04-15 21:29:30,429 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 21:29:32,468 [INFO]   FFC    Rs. 536.66
+2026-04-15 21:29:33,774 [INFO]   LUCK   Rs. 435.77
+2026-04-15 21:29:35,989 [INFO]   DGKC   Rs. 196.33
+2026-04-15 21:29:37,140 [INFO]   NML    Rs. 153.47
+2026-04-15 21:29:38,305 [INFO]   SYS    Rs. 153.59
+2026-04-15 21:29:39,606 [INFO]   HUBC   Rs. 221.29
+2026-04-15 21:29:51,086 [INFO]   SEARL  Rs. 94.59
+2026-04-15 21:29:51,087 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 21:29:51,121 [INFO]   Debug: balance=9999.9869 ETH, gasPrice=1000000080, nonce=21
+2026-04-15 21:29:51,203 [INFO]   Tx: 0xa8c306c313ca3a425cb3be804e3af27053918a48732db90f4ea6da29843ceb4f
+2026-04-15 21:29:51,221 [INFO]   Confirmed in block 127 | gas: 694,519
+2026-04-15 21:29:51,231 [INFO]   On-chain OGDC: Rs. 304.12 | Round #17 | at 21:31:26
+2026-04-15 21:29:51,232 [INFO] Done. Next run in 5 min.
+
+2026-04-15 21:34:51,299 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:34:51,300 [INFO] Run at 2026-04-15 21:34:51
+2026-04-15 21:34:51,300 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:34:51,301 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 21:34:54,342 [INFO]   OGDC   Rs. 304.12
+2026-04-15 21:34:56,640 [INFO]   PPL    Rs. 221.97
+2026-04-15 21:34:58,829 [INFO]   PSO    Rs. 365.00
+2026-04-15 21:35:00,171 [INFO]   HBL    Rs. 304.70
+2026-04-15 21:35:02,719 [INFO]   UBL    Rs. 370.73
+2026-04-15 21:35:04,116 [INFO]   MCB    Rs. 409.41
+2026-04-15 21:35:05,398 [INFO]   BAFL   Rs. 123.99
+2026-04-15 21:35:07,650 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 21:35:09,656 [INFO]   FFC    Rs. 536.66
+2026-04-15 21:35:11,594 [INFO]   LUCK   Rs. 435.77
+2026-04-15 21:35:14,107 [INFO]   DGKC   Rs. 196.33
+2026-04-15 21:35:16,353 [INFO]   NML    Rs. 153.47
+2026-04-15 21:35:18,709 [INFO]   SYS    Rs. 153.59
+2026-04-15 21:35:21,085 [INFO]   HUBC   Rs. 221.29
+2026-04-15 21:35:23,156 [INFO]   SEARL  Rs. 94.59
+2026-04-15 21:35:23,156 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 21:35:23,185 [INFO]   Debug: balance=9999.9862 ETH, gasPrice=1000000071, nonce=22
+2026-04-15 21:35:23,249 [INFO]   Tx: 0x81a3a969953eada9155190ec7bc4f2c6447793b8888d80c6f68173d188132927
+2026-04-15 21:35:23,267 [INFO]   Confirmed in block 128 | gas: 694,519
+2026-04-15 21:35:23,284 [INFO]   On-chain OGDC: Rs. 304.12 | Round #18 | at 21:36:58
+2026-04-15 21:35:23,284 [INFO] Done. Next run in 5 min.
+
+2026-04-15 21:40:23,356 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:40:23,384 [INFO] Run at 2026-04-15 21:40:23
+2026-04-15 21:40:23,384 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:40:23,384 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 21:40:23,397 [WARNING]   OGDC   Rs. 304.12  (cached — PSX API unavailable)
+2026-04-15 21:40:23,406 [WARNING]   PPL    Rs. 221.97  (cached — PSX API unavailable)
+2026-04-15 21:40:23,415 [WARNING]   PSO    Rs. 365.00  (cached — PSX API unavailable)
+2026-04-15 21:40:23,421 [WARNING]   HBL    Rs. 304.70  (cached — PSX API unavailable)
+2026-04-15 21:40:23,430 [WARNING]   UBL    Rs. 370.73  (cached — PSX API unavailable)
+2026-04-15 21:40:23,436 [WARNING]   MCB    Rs. 409.41  (cached — PSX API unavailable)
+2026-04-15 21:40:23,441 [WARNING]   BAFL   Rs. 123.99  (cached — PSX API unavailable)
+2026-04-15 21:40:23,445 [WARNING]   ENGRO  Rs. 485.38  (cached — PSX API unavailable)
+2026-04-15 21:40:23,449 [WARNING]   FFC    Rs. 536.66  (cached — PSX API unavailable)
+2026-04-15 21:40:23,451 [WARNING]   LUCK   Rs. 435.77  (cached — PSX API unavailable)
+2026-04-15 21:40:23,454 [WARNING]   DGKC   Rs. 196.33  (cached — PSX API unavailable)
+2026-04-15 21:40:23,459 [WARNING]   NML    Rs. 153.47  (cached — PSX API unavailable)
+2026-04-15 21:40:23,462 [WARNING]   SYS    Rs. 153.59  (cached — PSX API unavailable)
+2026-04-15 21:40:23,465 [WARNING]   HUBC   Rs. 221.29  (cached — PSX API unavailable)
+2026-04-15 21:40:23,468 [WARNING]   SEARL  Rs. 94.59  (cached — PSX API unavailable)
+2026-04-15 21:40:23,468 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 21:40:23,483 [INFO]   Debug: balance=9999.9855 ETH, gasPrice=1000000063, nonce=23
+2026-04-15 21:40:23,531 [INFO]   Tx: 0x42ac9f726d7e1c5a528e0c140c94c453003020128d7575cd068b71a444e99067
+2026-04-15 21:40:23,545 [INFO]   Confirmed in block 129 | gas: 694,519
+2026-04-15 21:40:23,557 [INFO]   On-chain OGDC: Rs. 304.12 | Round #19 | at 21:41:58
+2026-04-15 21:40:23,557 [INFO] Done. Next run in 5 min.
+
+2026-04-15 21:45:23,643 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:45:23,644 [INFO] Run at 2026-04-15 21:45:23
+2026-04-15 21:45:23,644 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:45:23,644 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 21:45:26,162 [INFO]   OGDC   Rs. 304.12
+2026-04-15 21:45:28,620 [INFO]   PPL    Rs. 221.97
+2026-04-15 21:45:31,071 [INFO]   PSO    Rs. 365.00
+2026-04-15 21:45:33,320 [INFO]   HBL    Rs. 304.70
+2026-04-15 21:45:35,887 [INFO]   UBL    Rs. 370.73
+2026-04-15 21:45:37,721 [INFO]   MCB    Rs. 409.41
+2026-04-15 21:45:39,681 [INFO]   BAFL   Rs. 123.99
+2026-04-15 21:45:41,502 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 21:45:44,378 [INFO]   FFC    Rs. 536.66
+2026-04-15 21:45:46,737 [INFO]   LUCK   Rs. 435.77
+2026-04-15 21:45:51,207 [INFO]   DGKC   Rs. 196.33
+2026-04-15 21:45:52,708 [INFO]   NML    Rs. 153.47
+2026-04-15 21:45:54,380 [INFO]   SYS    Rs. 153.59
+2026-04-15 21:45:56,264 [INFO]   HUBC   Rs. 221.29
+2026-04-15 21:45:58,558 [INFO]   SEARL  Rs. 94.59
+2026-04-15 21:45:58,559 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 21:45:58,573 [INFO]   Debug: balance=9999.9849 ETH, gasPrice=1000000056, nonce=24
+2026-04-15 21:45:58,606 [INFO]   Tx: 0x1ffea180a4af3b7a1755d93b37c7cfde408e21ad13106ec24834a0c135922a7f
+2026-04-15 21:45:58,616 [INFO]   Confirmed in block 130 | gas: 694,519
+2026-04-15 21:45:58,627 [INFO]   On-chain OGDC: Rs. 304.12 | Round #20 | at 21:47:33
+2026-04-15 21:45:58,627 [INFO] Done. Next run in 5 min.
+
+2026-04-15 21:50:58,700 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:50:58,701 [INFO] Run at 2026-04-15 21:50:58
+2026-04-15 21:50:58,701 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:50:58,701 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 21:51:01,169 [INFO]   OGDC   Rs. 304.12
+2026-04-15 21:51:04,175 [INFO]   PPL    Rs. 221.97
+2026-04-15 21:51:05,638 [INFO]   PSO    Rs. 365.00
+2026-04-15 21:51:08,177 [INFO]   HBL    Rs. 304.70
+2026-04-15 21:51:11,663 [INFO]   UBL    Rs. 370.73
+2026-04-15 21:51:12,797 [INFO]   MCB    Rs. 409.41
+2026-04-15 21:51:14,416 [INFO]   BAFL   Rs. 123.99
+2026-04-15 21:51:16,597 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 21:51:18,546 [INFO]   FFC    Rs. 536.66
+2026-04-15 21:51:20,674 [INFO]   LUCK   Rs. 435.77
+2026-04-15 21:51:22,952 [INFO]   DGKC   Rs. 196.33
+2026-04-15 21:51:24,998 [INFO]   NML    Rs. 153.47
+2026-04-15 21:51:26,862 [INFO]   SYS    Rs. 153.59
+2026-04-15 21:51:30,489 [INFO]   HUBC   Rs. 221.29
+2026-04-15 21:51:32,461 [INFO]   SEARL  Rs. 94.59
+2026-04-15 21:51:32,462 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 21:51:32,488 [INFO]   Debug: balance=9999.9842 ETH, gasPrice=1000000050, nonce=25
+2026-04-15 21:51:32,563 [INFO]   Tx: 0x875e31e9555aef1a375fa33be2fae060e72301f390d80616df61f8d958044cd2
+2026-04-15 21:51:32,586 [INFO]   Confirmed in block 131 | gas: 694,519
+2026-04-15 21:51:32,605 [INFO]   On-chain OGDC: Rs. 304.12 | Round #21 | at 21:53:07
+2026-04-15 21:51:32,606 [INFO] Done. Next run in 5 min.
+
+2026-04-15 21:56:32,674 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:56:32,676 [INFO] Run at 2026-04-15 21:56:32
+2026-04-15 21:56:32,676 [INFO] ──────────────────────────────────────────────────
+2026-04-15 21:56:32,677 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 21:56:35,074 [INFO]   OGDC   Rs. 304.12
+2026-04-15 21:56:39,726 [INFO]   PPL    Rs. 221.97
+2026-04-15 21:56:42,308 [INFO]   PSO    Rs. 365.00
+2026-04-15 21:56:44,538 [INFO]   HBL    Rs. 304.70
+2026-04-15 21:56:46,246 [INFO]   UBL    Rs. 370.73
+2026-04-15 21:56:47,566 [INFO]   MCB    Rs. 409.41
+2026-04-15 21:56:48,655 [INFO]   BAFL   Rs. 123.99
+2026-04-15 21:56:50,845 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 21:56:53,308 [INFO]   FFC    Rs. 536.66
+2026-04-15 21:56:56,141 [INFO]   LUCK   Rs. 435.77
+2026-04-15 21:56:57,690 [INFO]   DGKC   Rs. 196.33
+2026-04-15 21:57:08,885 [INFO]   NML    Rs. 153.47
+2026-04-15 21:57:11,354 [INFO]   SYS    Rs. 153.59
+2026-04-15 21:57:13,536 [INFO]   HUBC   Rs. 221.29
+2026-04-15 21:57:18,337 [INFO]   SEARL  Rs. 94.59
+2026-04-15 21:57:18,337 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 21:57:18,360 [INFO]   Debug: balance=9999.9835 ETH, gasPrice=1000000039, nonce=26
+2026-04-15 21:57:18,420 [INFO]   Tx: 0x5a4c708a878b8346e73f7ae812de46144db5382dbae61ac173d196730d91b78e
+2026-04-15 21:57:18,437 [INFO]   Confirmed in block 133 | gas: 694,519
+2026-04-15 21:57:18,453 [INFO]   On-chain OGDC: Rs. 304.12 | Round #22 | at 21:58:53
+2026-04-15 21:57:18,453 [INFO] Done. Next run in 5 min.
+
+2026-04-15 22:02:18,522 [INFO] ──────────────────────────────────────────────────
+2026-04-15 22:02:18,523 [INFO] Run at 2026-04-15 22:02:18
+2026-04-15 22:02:18,524 [INFO] ──────────────────────────────────────────────────
+2026-04-15 22:02:18,524 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 22:02:20,510 [INFO]   OGDC   Rs. 304.12
+2026-04-15 22:02:22,347 [INFO]   PPL    Rs. 221.97
+2026-04-15 22:02:25,238 [INFO]   PSO    Rs. 365.00
+2026-04-15 22:02:27,197 [INFO]   HBL    Rs. 304.70
+2026-04-15 22:02:29,444 [INFO]   UBL    Rs. 370.73
+2026-04-15 22:02:31,048 [INFO]   MCB    Rs. 409.41
+2026-04-15 22:02:33,322 [INFO]   BAFL   Rs. 123.99
+2026-04-15 22:02:35,387 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 22:02:37,229 [INFO]   FFC    Rs. 536.66
+2026-04-15 22:02:39,480 [INFO]   LUCK   Rs. 435.77
+2026-04-15 22:02:41,457 [INFO]   DGKC   Rs. 196.33
+2026-04-15 22:02:44,187 [INFO]   NML    Rs. 153.47
+2026-04-15 22:02:47,359 [INFO]   SYS    Rs. 153.59
+2026-04-15 22:02:49,519 [INFO]   HUBC   Rs. 221.29
+2026-04-15 22:02:51,867 [INFO]   SEARL  Rs. 94.59
+2026-04-15 22:02:51,868 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 22:02:51,897 [INFO]   Debug: balance=9999.9828 ETH, gasPrice=1000000035, nonce=27
+2026-04-15 22:02:51,979 [INFO]   Tx: 0xffe5159da773bb5720b05f993f684de9f8f72642e04196a6ca1cdb59970846c4
+2026-04-15 22:02:52,001 [INFO]   Confirmed in block 134 | gas: 694,519
+2026-04-15 22:02:52,024 [INFO]   On-chain OGDC: Rs. 304.12 | Round #23 | at 22:04:26
+2026-04-15 22:02:52,025 [INFO] Done. Next run in 5 min.
+
+2026-04-15 22:07:52,097 [INFO] ──────────────────────────────────────────────────
+2026-04-15 22:07:52,098 [INFO] Run at 2026-04-15 22:07:52
+2026-04-15 22:07:52,098 [INFO] ──────────────────────────────────────────────────
+2026-04-15 22:07:52,098 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 22:07:54,363 [INFO]   OGDC   Rs. 304.12
+2026-04-15 22:07:56,000 [INFO]   PPL    Rs. 221.97
+2026-04-15 22:07:57,947 [INFO]   PSO    Rs. 365.00
+2026-04-15 22:08:00,393 [INFO]   HBL    Rs. 304.70
+2026-04-15 22:08:02,435 [INFO]   UBL    Rs. 370.73
+2026-04-15 22:08:04,117 [INFO]   MCB    Rs. 409.41
+2026-04-15 22:08:05,430 [INFO]   BAFL   Rs. 123.99
+2026-04-15 22:08:07,071 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 22:08:09,070 [INFO]   FFC    Rs. 536.66
+2026-04-15 22:08:11,693 [INFO]   LUCK   Rs. 435.77
+2026-04-15 22:08:13,344 [INFO]   DGKC   Rs. 196.33
+2026-04-15 22:08:15,627 [INFO]   NML    Rs. 153.47
+2026-04-15 22:08:17,513 [INFO]   SYS    Rs. 153.59
+2026-04-15 22:08:19,149 [INFO]   HUBC   Rs. 221.29
+2026-04-15 22:08:28,431 [INFO]   SEARL  Rs. 94.59
+2026-04-15 22:08:28,432 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 22:08:28,455 [INFO]   Debug: balance=9999.9821 ETH, gasPrice=1000000025, nonce=28
+2026-04-15 22:08:28,511 [INFO]   Tx: 0xe912751f5995a20d8e849a580cab8721ba0ff04e19a623d74add6f2a182d6607
+2026-04-15 22:08:28,534 [INFO]   Confirmed in block 137 | gas: 694,519
+2026-04-15 22:08:28,552 [INFO]   On-chain OGDC: Rs. 304.12 | Round #24 | at 22:10:03
+2026-04-15 22:08:28,552 [INFO] Done. Next run in 5 min.
+
+2026-04-15 22:13:28,621 [INFO] ──────────────────────────────────────────────────
+2026-04-15 22:13:28,621 [INFO] Run at 2026-04-15 22:13:28
+2026-04-15 22:13:28,622 [INFO] ──────────────────────────────────────────────────
+2026-04-15 22:13:28,622 [INFO] Fetching from PSX official API (dps.psx.com.pk)...
+2026-04-15 22:13:33,394 [INFO]   OGDC   Rs. 304.12
+2026-04-15 22:13:35,589 [INFO]   PPL    Rs. 221.97
+2026-04-15 22:13:37,423 [INFO]   PSO    Rs. 365.00
+2026-04-15 22:13:38,970 [INFO]   HBL    Rs. 304.70
+2026-04-15 22:13:41,744 [INFO]   UBL    Rs. 370.73
+2026-04-15 22:13:43,616 [INFO]   MCB    Rs. 409.41
+2026-04-15 22:13:45,675 [INFO]   BAFL   Rs. 123.99
+2026-04-15 22:13:47,555 [INFO]   ENGRO  Rs. 485.38
+2026-04-15 22:13:49,622 [INFO]   FFC    Rs. 536.66
+2026-04-15 22:13:52,802 [INFO]   LUCK   Rs. 435.77
+2026-04-15 22:13:54,439 [INFO]   DGKC   Rs. 196.33
+2026-04-15 22:13:57,347 [INFO]   NML    Rs. 153.47
+2026-04-15 22:13:59,964 [INFO]   SYS    Rs. 153.59
+2026-04-15 22:14:02,425 [INFO]   HUBC   Rs. 221.29
+2026-04-15 22:14:04,134 [INFO]   SEARL  Rs. 94.59
+2026-04-15 22:14:04,134 [INFO] Pushing 15 prices: ['OGDC', 'PPL', 'PSO', 'HBL', 'UBL', 'MCB', 'BAFL', 'ENGRO', 'FFC', 'LUCK', 'DGKC', 'NML', 'SYS', 'HUBC', 'SEARL']
+2026-04-15 22:14:04,154 [INFO]   Debug: balance=9999.9814 ETH, gasPrice=1000000022, nonce=29
+2026-04-15 22:14:04,204 [INFO]   Tx: 0x31b24a8d10fb21e5881d4661063e3021c4df89af0aa089ad5165232fd778288e
+2026-04-15 22:14:04,220 [INFO]   Confirmed in block 138 | gas: 694,519
+2026-04-15 22:14:04,236 [INFO]   On-chain OGDC: Rs. 304.12 | Round #25 | at 22:15:39
+2026-04-15 22:14:04,237 [INFO] Done. Next run in 5 min.
+

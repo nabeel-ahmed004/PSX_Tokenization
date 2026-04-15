@@ -1,14 +1,362 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PSX://chain — Tokenized Pakistan Stock Exchange</title>
-    <meta name="description" content="Trade PSX-listed stocks as ERC-20 tokens on Ethereum. Fractional ownership, 24/7 trading, instant settlement." />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>" />
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PSX Chain</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: monospace;
+      background: #f5f5f5;
+      color: #111;
+      padding: 24px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    h1 { font-size: 20px; font-weight: bold; margin-bottom: 4px; }
+    h2 { font-size: 15px; font-weight: bold; margin: 24px 0 10px; border-bottom: 1px solid #ccc; padding-bottom: 4px; }
+    .topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 8px; }
+    .badge { font-size: 12px; background: #111; color: #fff; padding: 2px 8px; border-radius: 4px; }
+    .badge.green { background: #1a7a3b; }
+    button {
+      padding: 5px 12px; font-family: monospace; font-size: 13px;
+      border: 1px solid #aaa; background: #fff; cursor: pointer; border-radius: 3px;
+    }
+    button:hover { background: #eee; }
+    button.primary { background: #111; color: #fff; border-color: #111; }
+    button.primary:hover { background: #333; }
+    input, select {
+      font-family: monospace; font-size: 13px; padding: 5px 8px;
+      border: 1px solid #aaa; border-radius: 3px; background: #fff;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 8px; }
+    th, td { border: 1px solid #ddd; padding: 6px 10px; text-align: left; }
+    th { background: #eee; font-weight: bold; }
+    tr:hover td { background: #fafafa; }
+    .status {
+      font-size: 12px; padding: 8px 12px; background: #fff;
+      border: 1px solid #ccc; border-radius: 3px; margin: 12px 0;
+      min-height: 36px;
+    }
+    .green { color: #1a7a3b; }
+    .red   { color: #c0392b; }
+    .orange{ color: #d35400; }
+    .hidden { display: none; }
+    .trade-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+    .quote-box { font-size: 13px; background: #fff; border: 1px solid #ccc; padding: 6px 10px; border-radius: 3px; margin-top: 6px; }
+    .addr { font-size: 11px; color: #555; }
+  </style>
+</head>
+<body>
+
+<!-- Top bar -->
+<div class="topbar">
+  <div>
+    <h1>PSX Chain</h1>
+    <div class="addr">Tokenized Pakistan Stock Exchange — Ethereum</div>
+  </div>
+  <div id="wallet-disconnected">
+    <button class="primary" onclick="connectWallet()">Connect MetaMask</button>
+  </div>
+  <div id="wallet-connected" class="hidden" style="display:none; align-items:center; gap:8px; flex-wrap:wrap;">
+    <span id="wallet-address" class="addr"></span>
+    <span id="wallet-role" class="badge"></span>
+    <button onclick="disconnect()">Disconnect</button>
+  </div>
+</div>
+
+<div id="status" class="status">Not connected.</div>
+
+<!-- Main content (hidden until connected) -->
+<div id="main" class="hidden">
+
+  <!-- ── MARKET TABLE ─────────────────────────────────────────── -->
+  <h2>Market <button onclick="loadMarket()" style="font-size:11px;margin-left:8px;">↻ Refresh</button></h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Ticker</th>
+        <th>Company</th>
+        <th>Sector</th>
+        <th>Oracle Price (PKR)</th>
+        <!-- <th>Feed</th> -->
+        <th>Pool ETH</th>
+        <th>Pool Tokens</th>
+        <th>My Balance</th>
+        <th>KYC</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="market-tbody">
+      <tr><td colspan="10">Loading…</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ── TRADE ────────────────────────────────────────────────── -->
+  <h2>Trade</h2>
+  <div class="trade-row">
+    <select id="trade-token"><option value="">— select stock —</option></select>
+    <select id="trade-mode">
+      <option value="buy">Buy (ETH → Token)</option>
+      <option value="sell">Sell (Token → ETH)</option>
+    </select>
+    <label id="trade-amount-label" style="font-size:13px;">ETH to spend:</label>
+    <input id="trade-amount" type="number" step="0.001" placeholder="0.0" style="width:100px" />
+    <button onclick="getQuote()">Get Quote</button>
+    <button class="primary" onclick="executeTrade()">Execute Trade</button>
+  </div>
+  <div id="trade-quote" class="quote-box hidden"></div>
+
+</div>
+
+<!-- ── SCRIPT ──────────────────────────────────────────────────── -->
+<script src="https://unpkg.com/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+<script>
+const CONTRACTS = {
+  factory:  "0x1291Be112d480055DaFd8a610b7d1e203891C274",
+  exchange: "0x5f3f1dBD7B74C6B46e8c44f98792A1dAf8d69154",
+  oracle:   "0xb7278A61aa25c888815aFC32Ad3cC52fF24fE575",
+};
+
+const FACTORY_ABI = [
+  "function getAllTickers() view returns (string[])",
+  "function getCompanyInfo(string) view returns (tuple(string companyName,string ticker,string sector,address tokenAddress,uint256 listedAt,bool isActive))",
+  "function admin() view returns (address)",
+];
+const EXCHANGE_ABI = [
+  "function buyShares(address,uint256) payable",
+  "function sellShares(address,uint256,uint256)",
+  "function quoteBuy(address,uint256) view returns (uint256)",
+  "function quoteSell(address,uint256) view returns (uint256)",
+  "function getReserves(address) view returns (uint256,uint256)",
+  "function admin() view returns (address)",
+];
+const ORACLE_ABI = [
+  "function getPrice(string) view returns (uint256,bool)",
+  "function isFeeder(address) view returns (bool)",
+];
+const TOKEN_ABI = [
+  "function balanceOf(address) view returns (uint256)",
+  "function approve(address,uint256) returns (bool)",
+  "function whitelisted(address) view returns (bool)",
+];
+
+let provider, signer, address, role;
+let stockList = [];
+
+function setStatus(msg) {
+  document.getElementById("status").textContent = msg;
+}
+
+function fmt(wei, dec = 18) {
+  const n = Number(BigInt(wei) * 10000n / (10n ** BigInt(dec))) / 10000;
+  return n.toLocaleString("en-US", { maximumFractionDigits: 4 });
+}
+
+function fmtPKR(scaled) {
+  return "Rs. " + (Number(scaled) / 1e8).toLocaleString("en-PK", { maximumFractionDigits: 2 });
+}
+
+async function connectWallet() {
+  if (!window.ethereum) { setStatus("MetaMask not found."); return; }
+  try {
+    await window.ethereum.request({ method: "eth_requestAccounts" });
+    provider = new ethers.providers.Web3Provider(window.ethereum);
+    signer   = provider.getSigner();
+    address  = await signer.getAddress();
+    const { chainId } = await provider.getNetwork();
+
+    if (Number(chainId) !== 31337 && Number(chainId) !== 11155111) {
+      setStatus(`Wrong network (chain ${chainId}). Switch to Hardhat Local (31337) or Sepolia (11155111).`);
+      return;
+    }
+
+    role = await detectRole();
+
+    document.getElementById("wallet-disconnected").classList.add("hidden");
+    const wc = document.getElementById("wallet-connected");
+    wc.classList.remove("hidden");
+    wc.style.display = "flex";
+    document.getElementById("wallet-address").textContent =
+      address.slice(0, 6) + "…" + address.slice(-4);
+    const roleBadge = document.getElementById("wallet-role");
+    roleBadge.textContent = role;
+    // if (role === "admin") roleBadge.classList.add("green");
+
+    await loadStockList();
+    document.getElementById("main").classList.remove("hidden");
+    setStatus("Connected as " + role + " — " + address);
+    loadMarket();
+
+    window.ethereum.on("accountsChanged", () => location.reload());
+    window.ethereum.on("chainChanged",    () => location.reload());
+  } catch (e) {
+    setStatus("Connection failed: " + (e.message || e));
+  }
+}
+
+function disconnect() {
+  provider = signer = address = role = null;
+  location.reload();
+}
+
+async function detectRole() {
+  try {
+    const factory  = new ethers.Contract(CONTRACTS.factory,  FACTORY_ABI,  provider);
+    const exchange = new ethers.Contract(CONTRACTS.exchange, EXCHANGE_ABI, provider);
+    const oracle   = new ethers.Contract(CONTRACTS.oracle,   ORACLE_ABI,   provider);
+    const [fAdmin, eAdmin, isFeeder] = await Promise.all([
+      factory.admin().catch(() => null),
+      exchange.admin().catch(() => null),
+      oracle.isFeeder(address).catch(() => false),
+    ]);
+    const a = address.toLowerCase();
+    if ((fAdmin && a === fAdmin.toLowerCase()) ||
+        (eAdmin && a === eAdmin.toLowerCase())) return "admin";
+    if (isFeeder) return "kyc_checker";
+    return "investor";
+  } catch { return "investor"; }
+}
+
+async function loadStockList() {
+  try {
+    const factory = new ethers.Contract(CONTRACTS.factory, FACTORY_ABI, provider);
+    const tickers = await factory.getAllTickers();
+    stockList = await Promise.all(tickers.map(async t => {
+      const info = await factory.getCompanyInfo(t);
+      return {
+        ticker: t,
+        name:  info.companyName,
+        sector: info.sector,
+        tokenAddress: info.tokenAddress,
+        isActive: info.isActive,
+      };
+    }));
+    const sel = document.getElementById("trade-token");
+    sel.innerHTML = '<option value="">— select stock —</option>';
+    stockList.filter(s => s.isActive).forEach(s => {
+      sel.innerHTML += `<option value="${s.tokenAddress}">[${s.ticker}] ${s.name}</option>`;
+    });
+  } catch (e) {
+    console.error("loadStockList:", e);
+  }
+}
+
+async function loadMarket() {
+  if (!provider) return;
+  setStatus("Loading market…");
+  const exchange = new ethers.Contract(CONTRACTS.exchange, EXCHANGE_ABI, provider);
+  const oracle   = new ethers.Contract(CONTRACTS.oracle,   ORACLE_ABI,   provider);
+  const tbody    = document.getElementById("market-tbody");
+  tbody.innerHTML = "";
+
+  for (const s of stockList.filter(s => s.isActive)) {
+    const token = new ethers.Contract(s.tokenAddress, TOKEN_ABI, provider);
+    let price = 0n, isFresh = false, ethRes = 0n, tokRes = 0n, balance = 0n, isKYC = false;
+    try { [price, isFresh] = await oracle.getPrice(s.ticker); } catch {}
+    try { [ethRes, tokRes] = await exchange.getReserves(s.tokenAddress); } catch {}
+    try { balance = await token.balanceOf(address); } catch {}
+    try { isKYC   = await token.whitelisted(address); } catch {}
+
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td><b>${s.ticker}</b></td>
+      <td>${s.name}</td>
+      <td>${s.sector}</td>
+      <td>${price ? fmtPKR(price) : "—"}</td>
+      
+      <td>${ethRes ? fmt(ethRes) + " ETH" : "—"}</td>
+      <td>${tokRes ? fmt(tokRes) : "—"}</td>
+      <td>${fmt(balance)}</td>
+      <td>${isKYC ? '<span class="green">✓</span>' : '<span class="red">✗</span>'}</td>
+      <td>
+        <button onclick="quickSet('${s.tokenAddress}','buy')">Buy</button>
+        <button onclick="quickSet('${s.tokenAddress}','sell')">Sell</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  }
+  
+  // below fmtPKR line
+  // <td>${price ? (isFresh ? '<span class="green">Live</span>' : '<span class="orange">Stale</span>') : "—"}</td>
+      
+  setStatus("Market loaded — " + stockList.filter(s => s.isActive).length + " stocks.");
+}
+
+function quickSet(addr, mode) {
+  document.getElementById("trade-token").value = addr;
+  document.getElementById("trade-mode").value  = mode;
+  document.getElementById("trade-amount-label").textContent =
+    mode === "buy" ? "ETH to spend:" : "Tokens to sell:";
+  document.getElementById("trade-amount").focus();
+}
+
+document.getElementById("trade-mode").addEventListener("change", function () {
+  document.getElementById("trade-amount-label").textContent =
+    this.value === "buy" ? "ETH to spend:" : "Tokens to sell:";
+});
+
+async function getQuote() {
+  const tokenAddr = document.getElementById("trade-token").value;
+  const mode      = document.getElementById("trade-mode").value;
+  const amount    = document.getElementById("trade-amount").value;
+  const qDiv      = document.getElementById("trade-quote");
+  if (!tokenAddr || !amount) { qDiv.textContent = "Select a stock and enter amount."; qDiv.classList.remove("hidden"); return; }
+  const exchange = new ethers.Contract(CONTRACTS.exchange, EXCHANGE_ABI, provider);
+  try {
+    const amtWei = ethers.utils.parseEther(amount);
+    if (mode === "buy") {
+      const out = await exchange.quoteBuy(tokenAddr, amtWei);
+      qDiv.textContent = `Quote: ${amount} ETH → ${fmt(out)} tokens`;
+    } else {
+      const out = await exchange.quoteSell(tokenAddr, amtWei);
+      qDiv.textContent = `Quote: ${amount} tokens → ${fmt(out)} ETH`;
+    }
+    qDiv.classList.remove("hidden");
+  } catch (e) {
+    qDiv.textContent = "Quote failed: " + (e.reason || e.message);
+    qDiv.classList.remove("hidden");
+  }
+}
+
+async function executeTrade() {
+  const tokenAddr = document.getElementById("trade-token").value;
+  const mode      = document.getElementById("trade-mode").value;
+  const amount    = document.getElementById("trade-amount").value;
+  if (!tokenAddr || !amount) { setStatus("Select a stock and enter amount."); return; }
+  const exchange = new ethers.Contract(CONTRACTS.exchange, EXCHANGE_ABI, signer);
+  const amtWei   = ethers.utils.parseEther(amount);
+  try {
+    if (mode === "buy") {
+      setStatus("Sending buy transaction…");
+      const tx = await exchange.buyShares(tokenAddr, 0n, { value: amtWei });
+      setStatus("Waiting for confirmation…");
+      await tx.wait();
+      setStatus("✓ Buy confirmed — " + tx.hash);
+    } else {
+      setStatus("Approving tokens…");
+      const token  = new ethers.Contract(tokenAddr, TOKEN_ABI, signer);
+      const appTx  = await token.approve(CONTRACTS.exchange, amtWei);
+      await appTx.wait();
+      setStatus("Sending sell transaction…");
+      const tx = await exchange.sellShares(tokenAddr, amtWei, 0n);
+      setStatus("Waiting for confirmation…");
+      await tx.wait();
+      setStatus("✓ Sell confirmed — " + tx.hash);
+    }
+    loadMarket();
+  } catch (e) {
+    setStatus("Trade failed: " + (e.reason || e.message));
+  }
+}
+
+window.connectWallet  = connectWallet;
+window.disconnect     = disconnect;
+window.loadMarket     = loadMarket;
+window.getQuote       = getQuote;
+window.executeTrade   = executeTrade;
+window.quickSet       = quickSet;
+</script>
+</body>
 </html>
